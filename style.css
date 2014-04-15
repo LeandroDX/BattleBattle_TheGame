@@ -1,0 +1,143 @@
+body{
+	width:1270px;
+	height:900px;
+
+}
+
+#layoutMap{
+	width:85%;
+	height:80%;
+	border: 5px solid;
+	border-color: gray;
+	float:left;
+}
+
+#layoutOption{
+	width:14%;
+	height:80%;
+	border:2px solid;
+	border-color: gray;
+	float:right;
+}
+
+#layoutToolbar{
+	width:100%;
+	height:20%;
+	border:2px solid;
+	border-color: red;
+	clear: both;
+	float:left;
+
+}
+
+#bground{
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height:100%;
+}
+
+#attack{
+	z-index: 1;
+	font-size: 100px;
+	color: #A00;
+
+	position: absolute;
+	top: 490px;
+	left: 520px;
+
+	display: none;
+}
+		/*Imagem dos Mapas*/
+
+
+.army{
+	width: 20px;
+	height: 20px;
+	border: 1px solid #000;
+	margin: 0 auto 15px auto; /*espaçamento de um elemento para o outro*/
+	text-align: center;
+	padding: 10px;
+	border-radius: 100px;
+
+	/*background-color: rgb(250,250,210);*/
+	opacity: 1.0; 
+}
+
+
+#army0{ /*Argentina*/
+	position: absolute;
+	top: 570px;
+	left: 230px;
+
+}
+
+
+#army1{ /*Brazil*/
+	position: absolute;
+	top: 470px;
+	left: 270px;
+
+}
+
+#army2{ /*Chile*/
+	position: absolute;
+	top: 500px;
+	left: 190px;
+
+
+}
+
+#army3{ /*Colombia*/
+	position: absolute;
+	top: 400px;
+	left: 200px;
+
+
+}
+
+#army4{ /*Africa do Sul*/
+	position: absolute;
+	top: 550px;
+	left: 560px;
+
+
+}
+
+#army5{ /*Madagascar*/
+	position: absolute;
+	top: 530px;
+	left: 650px;
+
+
+}
+
+#army6{ /*Congo*/
+	position: absolute;
+	top: 480px;
+	left: 550px;
+}
+
+#army7{ /*Argélia*/
+	position: absolute;
+	top: 365px;
+	left: 470px;
+}
+
+#map1{
+	position: absolute;
+	height: 100px;
+	top: 550px;
+	left: 300px;
+
+}
+
+#map2{
+	position: absolute;
+	height: 100px;
+	top: 420px;
+	left: 500px;
+
+}

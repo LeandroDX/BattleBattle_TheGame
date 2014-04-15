@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Treinando Links</title>
+	<link rel="stylesheet" title="CSS"
+		href="style.css" />
+		<script type='text/javascript' src="script.js">
+		</script>
+</head>
+<body onload="reloadTerritory();">
+
+	<div id="layoutMap">  <!--//Área de jogo, mapa territorios-->
+
+		<img  id="bground" src="IMG/WarMap.jpg" />
+		
+
+		<div id="local0" title="Argentina" onmouseover="reluzOn('map1');" onMouseOut="reluzOff('map1');" onclick="clique(0);" >
+			<!-- <img id="map1" src="Q1.png" /> -->
+			<div id="army0" class="army"></div>
+		</div>
+
+		<div id="local1" title="Brazil" onmouseover="reluzOn('map2');" onMouseOut="reluzOff('map2');" onclick="clique(1);" >
+			<!-- <img id="map2" src="Q1.png" /> -->
+			<div id="army1" class="army"></div>
+		</div>
+
+		<div id="local2" title="Chile" onmouseover="reluzOn('army2');" onMouseOut="reluzOff('army2');" onclick="clique(2);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army2" class="army"></div>
+		</div>
+
+		<div id="local3" title="Colombia" onmouseover="reluzOn('army3');" onMouseOut="reluzOff('army3');" onclick="clique(3);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army3" class="army"></div>
+		</div>
+
+		<div id="local4" title="Africa do Sul" onmouseover="reluzOn('army4');" onMouseOut="reluzOff('army4');" onclick="clique(4);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army4" class="army"></div>
+		</div>
+
+		<div id="local5" title="Madagascar" onmouseover="reluzOn('army5');" onMouseOut="reluzOff('army5');" onclick="clique(5);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army5" class="army"></div>
+		</div>
+
+		<div id="local6" title="Congo" onmouseover="reluzOn('army6');" onMouseOut="reluzOff('army6');" onclick="clique(6);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army6" class="army"></div>
+		</div>
+
+		<div id="local7" title="Argélia" onmouseover="reluzOn('army7');" onMouseOut="reluzOff('army7');" onclick="clique(7);" >
+			<!--<img id="map1" src="Q1.png" /> -->
+			<div id="army7" class="army"></div>
+		</div>
+
+
+		<h1 id="attack">attack!</h1>
+
+	</div>
+
+	<div id="layoutOption"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
+		
+		<h1>Tetse</h1>
+		<input name="botao" type="button" onClick= "initialize();" value="botão">
+		</input>
+		<input name="mudaTurno" type="button" onClick= "changePhases();" value="Muda fase">
+		</input>
+		<input name="choiceT" type="button" onClick= "choiceTerritory();" value="choiceTerritory();">
+		</input>
+
+		<div>
+			<h2>Total army Player 1:</h2>
+			<h2 id="totalArmy1">0</h2>
+			<h2>Upgrade</h2>
+			<h2 id="armyNextPhase1">0</h2>
+			<h2>Conquista</h2>
+			<h2 id="armyConquista">0</h2>
+			<h2>Cartas</h2>
+			<h2 id="armyBonusCard">0</h2>
+		</div>
+
+		<div>
+			<h2>Total army Player 2:</h2>
+			<h2 id="totalArmy2">0</h2>
+		</div>
+
+
+
+
+
+
+
+
+		
+	</div>
+
+
+	<div id="layoutToolbar"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
+
+
+
+		
+		<h1>BottonmToolbar</h1>
+
+		<select name="thelist" onChange="combo(this, 'theinput')">
+  		<option>one army</option>
+		<option>two army</option>
+		<option>three army</option>
+		</select> 
+
+		<div align=center><a href='http://www.contadormania.com.br'><img src='http://www.contadormania.com.br/img-Z5zZxZC5-6.gif' border='0' alt='visitas'></a><script type='text/javascript' src='http://www.contadormania.com.br/ad.js?id=Z5zZxZC5'></script></div>
+
+
+
+
+	</div>
+
+
+<!--
+
+	<img class="area1" src="quadrado2.jpg" onclick="mudaImagem(1)" />
+
+
+
+	<script type='text/javascript'>
+
+	function mudaImagem(i) {    
+
+	if (i == 1) {
+
+        document.getElementById("imagem1").src="teste.png";
+
+        document.getElementById("imagem2").src="teste.png";    
+
+    } else if (i == 2) {       
+
+    	document.getElementById("imagem1").src="teste.png";        
+
+    	document.getElementById("imagem2").src="teste.png";    
+
+    }
+
+	}
+
+	</script>
+
+
+
+
+
+	<p>Treino de link</p>
+
+	
+
+	<a id="area1" href=""><img src="quadrado.png"> </a>	
+
+	-->
+
+
+	
+</body>
+</html>
