@@ -10,7 +10,12 @@
 </head>
 <body onload="reloadTerritory();">
 
+
+
 	<div id="layoutMap">  <!--//Área de jogo, mapa territorios-->
+
+
+
 
 		<img  id="bground" src="IMG/WarMap.jpg" />
 		
@@ -55,12 +60,17 @@
 			<div id="army7" class="army"></div>
 		</div>
 
-
 		<h1 id="attack">attack!</h1>
+	
+	
 
 	</div>
 
-	<div id="layoutOption"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
+	
+
+
+
+	<div id="oponenteStatus"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
 		
 		<h1>Tetse</h1>
 		<input name="botao" type="button" onClick= "initialize();" value="botão">
@@ -70,16 +80,7 @@
 		<input name="choiceT" type="button" onClick= "choiceTerritory();" value="choiceTerritory();">
 		</input>
 
-		<div>
-			<h2>Total army Player 1:</h2>
-			<h2 id="totalArmy1">0</h2>
-			<h2>Upgrade</h2>
-			<h2 id="armyNextPhase1">0</h2>
-			<h2>Conquista</h2>
-			<h2 id="armyConquista">0</h2>
-			<h2>Cartas</h2>
-			<h2 id="armyBonusCard">0</h2>
-		</div>
+		
 
 		<div>
 			<h2>Total army Player 2:</h2>
@@ -90,35 +91,78 @@
 
 
 
-
-
-
 		
 	</div>
 
 
-	<div id="layoutToolbar"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
+
+
+
+
+	<div id="yourStatus"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
 
 
 
 		
-		<h1>Barra de informações</h1>
 
-		<select name="thelist" onChange="combo(this, 'theinput')">
-  		<option>one army</option>
-		<option>two army</option>
-		<option>three army</option>
+		<div id="bonus">
+
+			<h1>Bonus Army</h1>
+			<h2>Your Army: <span id="totalArmy1">0</span></h2>
+			<h2>Upgrade: <span id="armyNextPhase1">0</span></h2>
+			<h2>Masterdom: <span id="armyConquista">0</span></h2>
+			<h2>Bonus Card: <span id="armyBonusCard">0</span></h2>
+		</div>
+
+
+		<div id="arena">
+
+			<h1>Battlefield</h1>
+			<h3>YOUR</h3>
+			<div class="battleTerritory">
+				<h3> BRAZIL</h3>
+				<h3>10</h3>
+			</div>
+
+		<select name="qntdYourAttack" onChange="combo(this, 'theinput')" >
+	  		<option>one army</option>
+			<option>two army</option>
+			<option>three army</option>
 		</select> 
 
-		<div align=center><a href='http://www.contadormania.com.br'><img src='http://www.contadormania.com.br/img-Z5zZxZC5-6.gif' border='0' alt='visitas'></a><script type='text/javascript' src='http://www.contadormania.com.br/ad.js?id=Z5zZxZC5'></script></div>
+			<h3>TARGET</h3>
+			<div class="battleTerritory">
+				<h3> ARGENTINA</h3>
+				<h3>1</h3>
+			</div>
+
+		</div>
 
 
+		<div id="cards">
+			<h1>Your Cards!</h1>
+			<IMG id="card1" SRC="IMG/quadrado2.jpg"/>
+				
+		</div>
+
+
+
+
+
+
+<!-- 		<div align=center><a href='http://www.contadormania.com.br'><img src='http://www.contadormania.com.br/img-Z5zZxZC5-6.gif' border='0' alt='visitas'></a><script type='text/javascript' src='http://www.contadormania.com.br/ad.js?id=Z5zZxZC5'></script></div>
+
+ -->
+
+<!-- <meter value="2" min="0" max="3">2 out of 10</meter><br> -->
 
 
 	</div>
 
 
-<!--
+
+	<img id="logoFixed" src="IMG/logo.jpg">
+	<!--
 
 	<img class="area1" src="quadrado2.jpg" onclick="mudaImagem(1)" />
 

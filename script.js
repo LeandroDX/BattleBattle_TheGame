@@ -110,7 +110,7 @@ function reloadTerritory(){
 
 
 		document.getElementById("armyNextPhase1").innerHTML= parseInt( parseInt(document.getElementById("totalArmy1").innerHTML) /2 ); //Qtos irá ganhar no próximo turno 
-		alert("valores:,REALOADTERRITORY");
+		// alert("valores:,REALOADTERRITORY");
 
 		
 		
