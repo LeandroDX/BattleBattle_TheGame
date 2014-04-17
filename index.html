@@ -60,6 +60,14 @@
 			<div id="army7" class="army"></div>
 		</div>
 
+		<div id="local8" title="Sudão" onmouseover="reluzOn('army8');" onMouseOut="reluzOff('army8');" onclick="clique(8);" >
+			<div id="army8" class="army"></div>
+		</div>
+
+		<div id="local9" title="Egito" onmouseover="reluzOn('army9');" onMouseOut="reluzOff('army9');" onclick="clique(9);" >
+			<div id="army9" class="army"></div>
+		</div>
+
 		<h1 id="attack">attack!</h1>
 	
 	
@@ -111,30 +119,43 @@
 			<h2>Your Army: <span id="totalArmy1">0</span></h2>
 			<h2>Upgrade: <span id="armyNextPhase1">0</span></h2>
 			<h2>Masterdom: <span id="armyConquista">0</span></h2>
-			<h2>Bonus Card: <span id="armyBonusCard">0</span></h2>
+			<h2>Bonus Card: <span id="armyBonusCard">100</span></h2>
 		</div>
 
 
 		<div id="arena">
 
-			<h1>Battlefield</h1>
-			<h3>YOUR</h3>
-			<div class="battleTerritory">
-				<h3> BRAZIL</h3>
-				<h3>10</h3>
+								<h1>Battlefield</h1>
+
+			<div>
+				<h3><span class="label">YOUR</span>
+				<span class="label">TARGET</span>
+				<span class="label2">Attk</span>
+				<span class="label2">Def</span></h3>			
+				
+				<div id="yourTerritory" class="battleTerritory">
+					<h3> BRAZIL</h3>
+					<h3>10</h3>
+				</div>
 			</div>
-
-		<select name="qntdYourAttack" onChange="combo(this, 'theinput')" >
-	  		<option>one army</option>
-			<option>two army</option>
-			<option>three army</option>
-		</select> 
-
-			<h3>TARGET</h3>
-			<div class="battleTerritory">
-				<h3> ARGENTINA</h3>
+			<select id="qntd" name="qntdYourAttack" onChange="combo(this, 'theinput')" >
+		  		<option>1 army</option>
+				<option>2 army's</option>
+				<option>3 army's</option>
+			</select>			
+			<div id="targetTerritory" class="battleTerritory">
+				<h3><span>ARGENTINA</span></h3>
 				<h3>1</h3>
 			</div>
+
+
+			<div id="compareDice">
+				dadosss
+
+
+			</div>
+		
+
 
 		</div>
 

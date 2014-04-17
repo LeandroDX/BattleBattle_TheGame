@@ -3,7 +3,7 @@ var player;
 var SelectionAttack;
 var armyAttack;
 var fArea = new Array;
-var qntdTerritorios = 8;
+var qntdTerritorios = 10;
 
 var teste;
 
@@ -36,6 +36,12 @@ function initialize(){
 
 	localStorage.setItem("A7", 0);	//Qntde exercito
 	localStorage.setItem("PlayerA7", null);//dominio player
+
+	localStorage.setItem("A8", 0);	//Qntde exercito
+	localStorage.setItem("PlayerA8", null);//dominio player
+
+	localStorage.setItem("A9", 0);	//Qntde exercito
+	localStorage.setItem("PlayerA9", null);//dominio player
 
 	localStorage.setItem("bonusTerritory1", 0);	
 	localStorage.setItem("bonusContinent1", 0);
@@ -195,7 +201,7 @@ function choiceTerritory(){
 
 
 	do{ /* Não esquecer de tratar RANDOM para não repetir numeros*/
-		nRandom = Math.floor((Math.random()*9)); // Random de 0 a 8
+		nRandom = Math.floor((Math.random()*qntdTerritorios)); // Random de 0 a 10
 		// alert(localStorage.getItem("A"+nRandom));
 		
 		if (localStorage.getItem("A"+nRandom)== 0){
