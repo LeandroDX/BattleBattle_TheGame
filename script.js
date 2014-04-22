@@ -7,6 +7,13 @@ var qntdTerritorios = 10;
 
 var teste;
 
+// $(document).ready(function(){
+// 	$("h2").click(function(){					//API JQUERY
+// 		$("#armyContinente").css("color","red");		
+// 		$("#army"+1).css("border","1px solid #FFF");
+// 	})
+// });
+
 function initialize(){	
 	localStorage.setItem("LS_fasesOfGame", 0); // Fases do Jogo  0-choiceTerritory()/ 1-battle()/ 2-colocar exercito
 	localStorage.setItem("LS_turn", 1);
@@ -43,9 +50,9 @@ function initialize(){
 	localStorage.setItem("A9", 0);	//Qntde exercito
 	localStorage.setItem("PlayerA9", null);//dominio player
 
-	localStorage.setItem("bonusTerritory1", 0);	
-	localStorage.setItem("bonusContinent1", 0);
-	localStorage.setItem("bonusCards1", 0);
+	localStorage.setItem("bonusTerritory", 2);	
+	localStorage.setItem("bonusContinent", 3);
+	localStorage.setItem("bonusCards", 7);
 
 	alert("valores:1vez somente,INITIALIZE");
 
@@ -58,11 +65,63 @@ function initialize(){
 
 // }
 
-function updateterritory(army){
-	alert("update");
 
-	localStorage.setItem("A"+army, 5); // Criar funçãopra escolher qtnd, coloquei valor fixo 5
-	reloadTerritory();
+
+function updateTerritory(army){
+	alert("update");
+	var valor, VArmy;
+
+	$(".bonus").click(function(){
+		alert($(this).attr("value"));
+		valor=($(this).attr("value"));
+		if (valor==2) {
+			alert("bonusTerritory");
+			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusTerritory"));
+			alert("Varmy"+VArmy);
+			localStorage.setItem("A"+army, VArmy);
+			localStorage.setItem("bonusTerritory",0);
+			$('.bonus').unbind('click');
+			reloadTerritory();
+		}
+		else if (valor==3) {
+			alert("bonusContinent");
+			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusContinent"));
+			alert("Varmy"+VArmy);
+			localStorage.setItem("A"+army, VArmy);
+			localStorage.setItem("bonusContinent",0);
+			$('.bonus').unbind('click');
+			reloadTerritory();
+		}
+		else if (valor==4) {
+			alert("bonusCards");
+			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusCards"));
+			alert("Varmy"+VArmy);
+			localStorage.setItem("A"+army, VArmy);
+			localStorage.setItem("bonusCards",0);
+			$('.bonus').unbind('click');
+			reloadTerritory();
+		};
+
+
+
+
+	});
+		
+		//Criar Efeito Painel
+		// $("h2").click(function(){					//API JQUERY
+		// 	$("#armyBonusCard").css("color","#FFF");
+		// });
+	// document.getElementById("totalArmy1").className = 'bonusUpdateActive';
+	// document.getElementById("armyNextPhase1").className = 'bonusUpdateActive';
+	// document.getElementById("armyContinente").className = 'bonusUpdateActive';
+	// document.getElementById("armyBonusCard").className = 'bonusUpdateActive';
+
+	// $(document).onclick
+
+	// tah osso manooo document.getElementByClassName ==
+
+	
+	//reloadTerritory();
 
 
 }
@@ -70,7 +129,6 @@ function updateterritory(army){
 function changePhases(){  //Temporary
 	localStorage.setItem("LS_fasesOfGame", 1); //Fase de Upgrade
 	alert(localStorage.getItem("LS_fasesOfGame"));
-
 
 }
 
@@ -106,16 +164,21 @@ function reloadTerritory(){
 				totalArmyPlayer[1] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[1];
 				document.getElementById("totalArmy1").innerHTML = totalArmyPlayer[1];
 			}
-			else if (localStorage.getItem("PlayerA"+i) == "blue"){
+			else if (localStorage.getItem("PlayerA"+i) == "blue"){ //Bonus por territórios divide por 2
 				totalArmyPlayer[2] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[2];
 				document.getElementById("totalArmy2").innerHTML = totalArmyPlayer[2];
 			};
-
-
 		};
 
 
-		document.getElementById("armyNextPhase1").innerHTML= parseInt( parseInt(document.getElementById("totalArmy1").innerHTML) /2 ); //Qtos irá ganhar no próximo turno 
+		///localStorage.setItem("bonusTerritory",parseInt( parseInt(document.getElementById("totalArmy1").innerHTML) /2 ) ); //Qtos irá ganhar no próximo turno 
+		
+		document.getElementById("armyNextPhase1").innerHTML= localStorage.getItem("bonusTerritory");
+		
+		document.getElementById("armyContinente").innerHTML = localStorage.getItem("bonusContinent");
+
+		document.getElementById("armyBonusCard").innerHTML = localStorage.getItem("bonusCards");
+
 		// alert("valores:,REALOADTERRITORY");
 
 		
@@ -226,7 +289,6 @@ function choiceTerritory(){
 }
 
 function clique(army){
-
 	var valor = document.getElementById("army"+army).innerHTML;		
 	var conquest;
 	alert("Conquest: "+conquest);
@@ -279,10 +341,11 @@ function clique(army){
 
 		}
 		else if (localStorage.getItem("LS_fasesOfGame")==2) {
-
 			alert("Fase 2");
+			reloadTerritory();
 			if (conquest == player) {
-				updateterritory(army);
+				$("#army"+army).css("border","1px solid #FFF");
+				updateTerritory(army);
 			}
 
 		}

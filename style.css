@@ -43,7 +43,7 @@ body{
 
 }
 
-#bonus{
+#bonusArmy{
 	width: 25%;
 	height: 100%;
 	border: 2px solid;
@@ -52,10 +52,12 @@ body{
 }
 
 #totalArmy1, #armyNextPhase1, 
-#armyConquista, #armyBonusCard{
-	margin: 0px 30px;
+#armyContinente, #armyBonusCard{
+	margin: 0px 30px;	
+}
 
-	
+.bonusUpdateActive{
+	color: blue;
 }
 
 h1{
@@ -66,7 +68,7 @@ h1{
 
 }
 
-h2{
+.bonus{
 	font-size: 13px;
 	background-color: #CFCFCF;
 	border: 1px solid #000;
