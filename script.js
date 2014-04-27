@@ -7,8 +7,7 @@ var qntdTerritorios = 10;
 
 var teste;
 
-$("<option value='1'>Até 200 mil</option>").appendTo("#qq")
-
+ 
 // $(document).ready(function(){
 // 	$("h2").click(function(){					//API JQUERY
 // 		$("#armyContinente").css("color","red");		
@@ -104,9 +103,6 @@ function updateTerritory(army){
 			reloadTerritory();
 		};
 
-
-
-
 	});
 		
 		//Criar Efeito Painel
@@ -185,6 +181,7 @@ function reloadTerritory(){
 
 		// alert("valores:,REALOADTERRITORY");
 
+
 		
 }
 
@@ -206,10 +203,11 @@ function connectArea(armyAttack,armyDefender){
 	return fArea[armyAttack][armyDefender];
 }
 
-function qntdDice(attDef){
-	//perguntar qtos dados usar??
-	alert("Perngutar");
-	return 1;
+function qntdDice(attDef,army){
+	var qntdDiceAttack=0;
+	var qntdDiceDefender=0;	
+
+
 }
 
 function rollTheDice(){
@@ -232,24 +230,55 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 	// alert("esta atacando->"+armyAttack);
 	// alert("esta defendendo->"+armyDefender);
 
-	// document.getElementById('qntdYourAttack').options[1] = new Option(Arms, 1);
 
-	qntdDiceAttack = qntdDice(0); //attack
-	qntdDdiceDefender = qntdDice(1); //Defender
+	if (localStorage.getItem("A"+armyAttack) == 2 ) {
+		document.getElementById('qntdYourAttack').options[0] = new Option( "1 army",1 );
+	}
+	else if (localStorage.getItem("A"+armyAttack) == 3 ) {
+		document.getElementById('qntdYourAttack').options[0] = new Option( "1 army",1 );
+		document.getElementById('qntdYourAttack').options[1] = new Option( "2 army's",2 );
+	}
+	else{
+		document.getElementById('qntdYourAttack').options[0] = new Option( "1 army",1 );
+		document.getElementById('qntdYourAttack').options[1] = new Option( "2 army's",2 );
+		document.getElementById('qntdYourAttack').options[2] = new Option( "3 army's",3 );
+	}
+
+		//perguntar qtos dados usar??
+		$("#btnAttck").click(function(){ //Evento de clicar no BtnAttck, para escolher qntd de armys atacantes
+			qntdDiceAttack = parseInt(document.getElementById("qntdYourAttack").value);
+
+			if (localStorage.getItem("A"+armyDefender)==1) {
+				qntdDiceDefender = 1;
+			}
+			else if(localStorage.getItem("A"+armyDefender)==2){
+				qntdDiceDefender = 2;
+			}
+			else if(localStorage.getItem("A"+armyDefender)>2){
+				qntdDiceDefender = 3;
+			};
+
+
+			alert("AAAAA"+qntdDiceAttack);
+			alert("DDDDDDD"+qntdDiceDefender);
+
+		});
+	
 
 
 
-	for (i=1; i<=qntdDiceAttack; i++){
-		valueDice[i]=rollTheDice();			
-	};
-	for (i=4; i<=qntdDiceAttack+3; i++){
-		valueDice[i]=rollTheDice();		
-	};
+
+	// for (i=1; i<=qntdDiceAttack; i++){
+	// 	valueDice[i]=rollTheDice();			
+	// };
+	// for (i=4; i<=qntdDiceAttack+3; i++){
+	// 	valueDice[i]=rollTheDice();		
+	// };
 
 	
 
-	alert("Valor dadoA: "+valueDice[1]);
-	alert("Valor dadoD: "+valueDice[4]);
+	// alert("Valor dadoA: "+valueDice[1]);
+	// alert("Valor dadoD: "+valueDice[4]);
 
 	// alert(rollTheDice()); Criar função para rolar dados repetição pela qntidade
 	
@@ -272,7 +301,7 @@ function choiceTerritory(){
 		// alert(localStorage.getItem("A"+nRandom));
 		
 		if (localStorage.getItem("A"+nRandom)== 0){
-		 		localStorage.setItem("A"+nRandom, 1);
+		 		localStorage.setItem("A"+nRandom, 2);
 		 		localStorage.setItem("PlayerA"+nRandom, ArmyCor);//dominio player		 		
 				if (ArmyCor == "red"){
 					ArmyCor = "blue";
@@ -317,7 +346,7 @@ function clique(army){
 	if (player == turn){
 		if (localStorage.getItem("LS_fasesOfGame")==1) {  //Fase de Batalha
 
-			if ( (conquest == player)&&(SelectionAttack==false) ){ //selecionado seu territorio como atacante
+			if ( (conquest == player)&&(SelectionAttack==false)&&(localStorage.getItem("A"+army)>1) ){ //selecionado seu territorio como atacante
 				
 				alert("Territorio seu");		
 				SelectionAttack=true;
