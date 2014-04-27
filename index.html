@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Treinando Links</title>
+	<title>Battle & Battle</title>
 	<link rel="stylesheet" title="CSS"
 		href="style.css" />
 		<script type='text/javascript' src="jquery-1.11.0.min.js"></script>
@@ -134,18 +134,21 @@
 				<span class="label2">Def</span></h3>			
 				
 				<div id="yourTerritory" class="battleTerritory">
-					<h3> BRAZIL</h3>
-					<h3>10</h3>
+					<h3 id="b_country"></h3>
+					<h3 id="b_qntd"></h3>
 				</div>
 			</div>
-			<select id="qntd" name="qntdYourAttack" onChange="combo(this, 'theinput')" >
-		  		<option>1 army</option>
-				<option>2 army's</option>
-				<option>3 army's</option>
-			</select>			
+
+			<select id="qq" name="qntdYourAttack" onChange="combo(this, 'theinput')" >
+				<option value="1"></option>
+				<option value="2"></option>
+				<option value="3"></option>
+				<!-- Função battle(armyAttack, armyDefender) se encarrega de setar valores  -->
+			</select>	
+
 			<div id="targetTerritory" class="battleTerritory">
-				<h3><span>ARGENTINA</span></h3>
-				<h3>1</h3>
+				<h3><span id="b_countryE"></span></h3>
+				<h3 id="b_qntdE"></h3>
 			</div>
 
 

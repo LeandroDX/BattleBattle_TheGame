@@ -7,6 +7,8 @@ var qntdTerritorios = 10;
 
 var teste;
 
+$("<option value='1'>Até 200 mil</option>").appendTo("#qq")
+
 // $(document).ready(function(){
 // 	$("h2").click(function(){					//API JQUERY
 // 		$("#armyContinente").css("color","red");		
@@ -150,6 +152,8 @@ function reloadTerritory(){
 	};
 
 
+
+
 		//Quando Inicializa a Página os valores serão pegos no banco de Dados
 			//Setando valores pelo LocalStore
 		for (var i=0; i<qntdTerritorios; i++){  //Função prencher valores e dominios
@@ -182,8 +186,6 @@ function reloadTerritory(){
 		// alert("valores:,REALOADTERRITORY");
 
 		
-		
-	
 }
 
 function connectArea(armyAttack,armyDefender){
@@ -229,6 +231,8 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 
 	// alert("esta atacando->"+armyAttack);
 	// alert("esta defendendo->"+armyDefender);
+
+	// document.getElementById('qntdYourAttack').options[1] = new Option(Arms, 1);
 
 	qntdDiceAttack = qntdDice(0); //attack
 	qntdDdiceDefender = qntdDice(1); //Defender
@@ -310,26 +314,31 @@ function clique(army){
 		alert("Turno do player? "+localStorage.getItem("LS_turn"));
 
 
-	if (player == turn){		
-			//document.getElementById(army).setAttribute('style', ' opacity: 1.0; background-color: '+cor+';'); //Efeito de seleção de attack
-		if (localStorage.getItem("LS_fasesOfGame")==1) {
+	if (player == turn){
+		if (localStorage.getItem("LS_fasesOfGame")==1) {  //Fase de Batalha
 
 			if ( (conquest == player)&&(SelectionAttack==false) ){ //selecionado seu territorio como atacante
 				
-				alert("Territorio seu");			
+				alert("Territorio seu");		
 				SelectionAttack=true;
 				armyAttack = army;
-				alert("Armyattack: "+armyAttack)
+
+				alert($("#local"+armyAttack).attr('title'));
+				document.getElementById("b_qntd").innerHTML = localStorage.getItem("A"+armyAttack);
+				document.getElementById("b_country").innerHTML = $("#local"+armyAttack).attr('title');
+
+				document.getElementById("attack").style.display = "block";
 				document.getElementById("army"+army).setAttribute('style', ' background-color: red; border: 3px solid #AEF ;'); //Efeito de seleção atacante
 				document.getElementById("attack").setAttribute('style', ' color: '+cor+';');
-				document.getElementById("attack").style.display = "block";
 
-			};
-
-			if ( (SelectionAttack==true)&&(conquest != player) ){
+			}
+			else if ( (SelectionAttack==true)&&(conquest != player) ){
 				alert("Territorio inimigo");
 				if ( connectArea(armyAttack,army) ) { //Verifica se há fronteira entre os territórios
 					alert("connectArea: TRUE pode atacar");
+
+					document.getElementById("b_qntdE").innerHTML = localStorage.getItem("A"+army);
+					document.getElementById("b_countryE").innerHTML = $("#local"+army).attr('title');
 					
 					document.getElementById("attack").style.display = "none";
 				  //Função para batalhar--Criar
@@ -340,7 +349,7 @@ function clique(army){
 			}		
 
 		}
-		else if (localStorage.getItem("LS_fasesOfGame")==2) {
+		else if (localStorage.getItem("LS_fasesOfGame")==2) { //FASE UPDATE
 			alert("Fase 2");
 			reloadTerritory();
 			if (conquest == player) {
