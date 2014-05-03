@@ -115,7 +115,7 @@ function updateTerritory(army){
 		});
 		$("#valueBar").click(function(){  //Confirma Update
 			localStorage.setItem("A"+army,valueFinalUpdate);
-			alert("Update Your Army");
+			alert(":Update Your Army:");
 			reloadTerritory();
 				
 		});
