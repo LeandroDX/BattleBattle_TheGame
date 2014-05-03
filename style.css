@@ -81,6 +81,26 @@ h1{
 
 }
 
+.bar{
+	padding: 0px 10px;
+	border: 1px solid #000;
+	border-radius: 10px;
+	font-size: 10px;
+}
+
+.bar:hover{
+	background-color: green;
+}
+
+#heightBar{
+	width: 100px;
+	height: 15px;
+}
+
+#valueBar{
+	text-align: center;
+}
+
 
 #arena{
 	width: 52%;
@@ -279,3 +299,4 @@ h1{
 	left: 500px;
 
 }
+

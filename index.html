@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Battle & Battle</title>
-	<link rel="stylesheet" title="CSS"
-		href="style.css" />
+	<link rel="stylesheet" title="CSS" href="style.css" />
 		<script type='text/javascript' src="jquery-1.11.0.min.js"></script>
 		<script type='text/javascript' src="script.js"></script>
+
 </head>
 <body onload="reloadTerritory();">
 
@@ -17,7 +17,7 @@
 
 
 
-		<img  id="bground" src="IMG/WarMap.jpg" />
+		<img  id="bground" src="WarMap.jpg" />
 		
 
 		<div id="local0" title="Argentina" onmouseover="reluzOn('map1');" onMouseOut="reluzOff('map1');" onclick="clique(0);" >
@@ -110,7 +110,6 @@
 	<div id="yourStatus"> <!--//Mostrar detalhes de batalha, qtd de exercito e territórios-->
 
 
-
 		
 
 		<div id="bonusArmy">
@@ -119,7 +118,14 @@
 			<h2 class="bonus" value="1">Your Army: <span id="totalArmy1">0</span></h2>
 			<h2 class="bonus" value="2">Upgrade: <span id="armyNextPhase1">0</span></h2>
 			<h2 class="bonus" value="3">Masterdom: <span id="armyContinente">0</span></h2>
-			<h2 class="bonus" value="4">Bonus Card: <span id="armyBonusCard">0</span></h2>
+			<h2 class="bonus" value="4">Bonus Card: <span id="armyBonusCard">0</span></h2>					
+			<div id="teste">
+				<h3 id="valueBar">1</h3>
+				<span value="-1" class="bar"><<</span>
+				<progress id="heightBar" value="1" min="1" max="10"></progress>
+				<span value="1" class="bar">>></span>	
+			</div>
+			
 		</div>
 
 
@@ -226,8 +232,6 @@
 	<a id="area1" href=""><img src="quadrado.png"> </a>	
 
 	-->
-
-
 	
 </body>
 </html>

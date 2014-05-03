@@ -7,7 +7,7 @@ var qntdTerritorios = 10;
 
 var teste;
 
- 
+
 // $(document).ready(function(){
 // 	$("h2").click(function(){					//API JQUERY
 // 		$("#armyContinente").css("color","red");		
@@ -103,8 +103,24 @@ function updateTerritory(army){
 			reloadTerritory();
 		};
 
-	});
-		
+
+	});		
+		var valueFinalUpdate;
+		$(".bar").click(function(){	//Usuario acrescenta ou diminui valor de Update
+			document.getElementById("heightBar").value=document.getElementById("heightBar").value+parseInt($(this).attr("value"));
+			document.getElementById("valueBar").innerHTML=document.getElementById("heightBar").value;
+			valueFinalUpdate=parseInt(localStorage.getItem("A"+army))+parseInt(document.getElementById("heightBar").value);
+
+			document.getElementById("army"+army).innerHTML= valueFinalUpdate;
+		});
+		$("#valueBar").click(function(){  //Confirma Update
+			localStorage.setItem("A"+army,valueFinalUpdate);
+			alert("Update Your Army");
+			reloadTerritory();
+				
+		});
+
+
 		//Criar Efeito Painel
 		// $("h2").click(function(){					//API JQUERY
 		// 	$("#armyBonusCard").css("color","#FFF");
@@ -153,7 +169,7 @@ function reloadTerritory(){
 		//Quando Inicializa a Página os valores serão pegos no banco de Dados
 			//Setando valores pelo LocalStore
 		for (var i=0; i<qntdTerritorios; i++){  //Função prencher valores e dominios
-			document.getElementById("army"+i).innerHTML = localStorage.getItem("A"+i);
+			document.getElementById("army"+i).innerHTML = localStorage.getItem("A"+i);			
 			document.getElementById("army"+i).setAttribute('style', ' background-color:'
 				+localStorage.getItem("PlayerA"+i)+' ;');
 		};
@@ -203,22 +219,12 @@ function connectArea(armyAttack,armyDefender){
 	return fArea[armyAttack][armyDefender];
 }
 
-function qntdDice(attDef,army){
-	var qntdDiceAttack=0;
-	var qntdDiceDefender=0;	
-
-
-}
-
-function rollTheDice(){
-	
+function rollTheDice(){	
 	return Math.floor((Math.random()*6)+1); //Valor de 1 a 6 Simulando um dado	
 }
 
-function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fronteira e rolar os dados
-	var qntdDiceAttack=0;
-	var qntdDiceDefender=0;
-	var i;
+function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escolhidos para o embate
+	var i, j, swap;
 	var valueDice = new Array();
 		valueDice[1]=0;
 		valueDice[2]=0;
@@ -226,6 +232,86 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 		valueDice[4]=0;
 		valueDice[5]=0;
 		valueDice[6]=0;
+
+	alert("Atack = "+diceA+"\nDefesa = "+ diceD);
+
+	for (i=1; i <= diceA; i++){
+		valueDice[i]= rollTheDice();		
+	}
+	for (i=4; i <= (diceD+3); i++){
+	 	valueDice[i]= rollTheDice();		
+	}
+
+	alert("A1 --> "+ valueDice[1] +
+		"\nA2 --> "+ valueDice[2] +
+		"\nA3 --> "+ valueDice[3] +
+		"\nD1 --> "+ valueDice[4] +
+		"\nD2 --> "+ valueDice[5] +
+		"\nD3 --> "+ valueDice[6] 
+	);
+
+	//Lógica para comparação dos Dados
+			//Ordenação dos dados, maior p/ menor
+	for (i = 1; i <= 2 ; i++) {
+		for (j = i+1; j <= 3; j++) {
+			if(valueDice[i]<valueDice[j]){
+				swap=valueDice[i];
+				valueDice[i]=valueDice[j];
+				valueDice[j]=swap;
+			}
+			if(valueDice[i+3]<valueDice[j+3]){
+				swap=valueDice[i+3];
+				valueDice[i+3]=valueDice[j+3];
+				valueDice[j+3]=swap;
+			}
+		};		
+	};
+
+	alert("A1 --> "+ valueDice[1] +
+		"\nA2 --> "+ valueDice[2] +
+		"\nA3 --> "+ valueDice[3] +
+		"\nD1 --> "+ valueDice[4] +
+		"\nD2 --> "+ valueDice[5] +
+		"\nD3 --> "+ valueDice[6] 
+	);
+
+	// Calculos de perdas
+	var qts,vArmy;	
+	if (diceA < diceD){
+		qts=diceA;		
+	}
+	else{
+		qts=diceD;
+	}
+	for (i = 1; i <= qts; i++) {	
+		if(valueDice[i] > valueDice[i+3]){	//Se attack ganhar retira 1 da defenser
+			vArmy = parseInt(localStorage.getItem("A"+armyDefender))-1;
+			localStorage.setItem("A"+armyDefender,vArmy);
+					alert("Atack Win");
+		}
+		else{
+			vArmy = parseInt(localStorage.getItem("A"+armyAttack))-1;
+			localStorage.setItem("A"+armyAttack,vArmy);
+			alert("Atack Lost");
+		}
+	}
+
+	if (localStorage.getItem("A"+armyDefender)==0) {
+		vArmy = parseInt(localStorage.getItem("A"+armyAttack))-1;
+		localStorage.setItem("A"+armyAttack,vArmy);
+		localStorage.setItem("A"+armyDefender,1);
+		localStorage.setItem("PlayerA"+armyDefender,"red");
+	};
+
+	reloadTerritory();
+
+
+}
+
+function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fronteira e rolar os dados
+	var qntdDiceAttack=0;
+	var qntdDiceDefender=0;
+	var i;
 
 	// alert("esta atacando->"+armyAttack);
 	// alert("esta defendendo->"+armyDefender);
@@ -256,11 +342,9 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 			}
 			else if(localStorage.getItem("A"+armyDefender)>2){
 				qntdDiceDefender = 3;
-			};
-
-
-			alert("AAAAA"+qntdDiceAttack);
-			alert("DDDDDDD"+qntdDiceDefender);
+			}
+			
+			compareDice(qntdDiceAttack,qntdDiceDefender,armyAttack,armyDefender);
 
 		});
 	
