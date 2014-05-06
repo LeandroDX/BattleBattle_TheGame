@@ -1,4 +1,4 @@
-body{
+﻿body{
 	width:1270px;
 	height:900px;
 
@@ -82,7 +82,7 @@ h1{
 }
 
 .bar{
-	padding: 0px 10px;
+	padding: 0px 9px;
 	border: 1px solid #000;
 	border-radius: 10px;
 	font-size: 10px;

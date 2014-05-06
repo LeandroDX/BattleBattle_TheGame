@@ -51,7 +51,7 @@ function initialize(){
 	localStorage.setItem("A9", 0);	//Qntde exercito
 	localStorage.setItem("PlayerA9", null);//dominio player
 
-	localStorage.setItem("bonusTerritory", 2);	
+	localStorage.setItem("bonusTerritory", 20);	
 	localStorage.setItem("bonusContinent", 3);
 	localStorage.setItem("bonusCards", 7);
 
@@ -70,73 +70,58 @@ function initialize(){
 
 function updateTerritory(army){
 	alert("update");
-	var valor, VArmy;
+	var valor, vArmy;
 
-	$(".bonus").click(function(){
-		alert($(this).attr("value"));
+
+
+	$(".bonus").click(function(){		
+		var heightBar= document.getElementById("heightBar");
 		valor=($(this).attr("value"));
-		if (valor==2) {
-			alert("bonusTerritory");
-			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusTerritory"));
-			alert("Varmy"+VArmy);
-			localStorage.setItem("A"+army, VArmy);
-			localStorage.setItem("bonusTerritory",0);
+		document.getElementById("heightBar").value= "0";
+
+
+		if($(".bonus[value="+valor+"] span").html()>0){
+			var vBonus
+			if (valor==2) {
+				vBonus = "bonusTerritory";
+				vArmy = "armyNextPhase1";
+				alert(vBonus);
+			}
+			else if (valor==3) {
+				vBonus = "bonusContinent";
+				vArmy = "armyContinente";
+				alert(vBonus);
+			}
+			else if (valor==4) {
+				vBonus = "bonusCards";
+				vArmy = "armyBonusCard";
+				alert(vBonus);
+			}
+
+				document.getElementById("heightBar").max= localStorage.getItem(vBonus);
+				var valueFinalUpdate;
+					$(".bar").click(function(){	//Usuario acrescenta ou diminui valor de Update					
+						heightBar.value = heightBar.value+parseInt($(this).attr("value"));						
+						document.getElementById("valueBar").innerHTML= heightBar.value;
+						valueFinalUpdate=parseInt(localStorage.getItem("A"+army))+parseInt(heightBar.value);
+
+						document.getElementById("army"+army).innerHTML= valueFinalUpdate;
+					
+						document.getElementById(vArmy).innerHTML= parseInt(localStorage.getItem(vBonus))-document.getElementById("valueBar").innerHTML;
+					
+					});
+
+				$("#valueBar").click(function(){  //Confirma Update
+					localStorage.setItem("A"+army,valueFinalUpdate);
+					alert("Update Your Army");
+					localStorage.setItem(vBonus,parseInt(localStorage.getItem(vBonus))-document.getElementById("valueBar").innerHTML);
+					reloadTerritory();				
+				});
+
+
 			$('.bonus').unbind('click');
-			reloadTerritory();
 		}
-		else if (valor==3) {
-			alert("bonusContinent");
-			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusContinent"));
-			alert("Varmy"+VArmy);
-			localStorage.setItem("A"+army, VArmy);
-			localStorage.setItem("bonusContinent",0);
-			$('.bonus').unbind('click');
-			reloadTerritory();
-		}
-		else if (valor==4) {
-			alert("bonusCards");
-			VArmy = parseInt(localStorage.getItem("A"+army))+parseInt(localStorage.getItem("bonusCards"));
-			alert("Varmy"+VArmy);
-			localStorage.setItem("A"+army, VArmy);
-			localStorage.setItem("bonusCards",0);
-			$('.bonus').unbind('click');
-			reloadTerritory();
-		};
-
-
-	});		
-		var valueFinalUpdate;
-		$(".bar").click(function(){	//Usuario acrescenta ou diminui valor de Update
-			document.getElementById("heightBar").value=document.getElementById("heightBar").value+parseInt($(this).attr("value"));
-			document.getElementById("valueBar").innerHTML=document.getElementById("heightBar").value;
-			valueFinalUpdate=parseInt(localStorage.getItem("A"+army))+parseInt(document.getElementById("heightBar").value);
-
-			document.getElementById("army"+army).innerHTML= valueFinalUpdate;
-		});
-		$("#valueBar").click(function(){  //Confirma Update
-			localStorage.setItem("A"+army,valueFinalUpdate);
-			alert(":Update Your Army:");
-			reloadTerritory();
-				
-		});
-
-
-		//Criar Efeito Painel
-		// $("h2").click(function(){					//API JQUERY
-		// 	$("#armyBonusCard").css("color","#FFF");
-		// });
-	// document.getElementById("totalArmy1").className = 'bonusUpdateActive';
-	// document.getElementById("armyNextPhase1").className = 'bonusUpdateActive';
-	// document.getElementById("armyContinente").className = 'bonusUpdateActive';
-	// document.getElementById("armyBonusCard").className = 'bonusUpdateActive';
-
-	// $(document).onclick
-
-	// tah osso manooo document.getElementByClassName ==
-
-	
-	//reloadTerritory();
-
+	});
 
 }
 
