@@ -1,5 +1,6 @@
 var turn;
 var player;
+var qntdPlayer = 2;
 var SelectionAttack;
 var armyAttack;
 var fArea = new Array;
@@ -10,7 +11,8 @@ var vArmy;
 var teste;
 
 function teste(){
-	alert("Testeee");
+	alert("Testeee--> "+localStorage.getItem("PlayerA"+1));
+	
 }
 
 // $(document).ready(function(){
@@ -21,7 +23,7 @@ function teste(){
 // });
 
 function initialize(){	
-	localStorage.setItem("LS_fasesOfGame", 0); // Fases do Jogo  0-choiceTerritory()/ 1-battle()/ 2-colocar exercito
+	localStorage.setItem("LS_fasesOfGame", 0); // Fases do Jogo  0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus 
 	localStorage.setItem("LS_turn", 1);
 	localStorage.setItem("LS_player", 1);
 
@@ -29,7 +31,7 @@ function initialize(){
 
 	for (var i = 0; i < qntdTerritorios; i++) {
 		localStorage.setItem("A"+i, 0);	//Qntde exercito
-		localStorage.setItem("PlayerA"+i, null);//dominio player
+		localStorage.setItem("PlayerA"+i, 0);//dominio player		
 	};
 
 	localStorage.setItem("bonusTerritory", 20);	
@@ -42,6 +44,163 @@ function initialize(){
 
 }
 
+function choiceTerritory(){	
+	var nRandom;
+	var i = 0;
+	var ArmyCor = 1;
+
+	do{ /* Não esquecer de tratar RANDOM para não repetir numeros*/
+		nRandom = Math.floor((Math.random()*qntdTerritorios)); // Random de 0 a 10
+		// alert(localStorage.getItem("A"+nRandom));
+		
+		if (localStorage.getItem("A"+nRandom)== 0){
+		 		localStorage.setItem("A"+nRandom, 2);
+		 		localStorage.setItem("PlayerA"+nRandom, ArmyCor);//dominio player
+
+				if (ArmyCor == 1){
+					ArmyCor = 2;					
+				}
+				else if (ArmyCor == 2){
+					ArmyCor = 1;					
+				}
+				i++;				
+		};	
+	}while ( i < qntdTerritorios );
+	localStorage.setItem("LS_fasesOfGame", 2);
+
+	reloadTerritory();
+}
+
+function changePhases(){ //0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus()
+	var vPlayer;
+
+	vPlayer = localStorage.getItem("LS_turn");
+
+	if (localStorage.getItem("LS_fasesOfGame")==2){
+		localStorage.setItem("LS_fasesOfGame", 1);
+	}
+	else if(localStorage.getItem("LS_fasesOfGame")==1){
+		localStorage.setItem("LS_fasesOfGame", 2);
+		vPlayer++;
+		if (vPlayer>qntdPlayer) {
+			vPlayer=1;
+		};
+		localStorage.setItem("LS_turn",vPlayer);
+		acceptBonus(vPlayer);
+
+	}
+
+	alert("Fases: "+localStorage.getItem("LS_fasesOfGame"));
+	alert("Turno: "+localStorage.getItem("LS_turn"));
+	alert("Turnoss: "+vPlayer);
+}
+
+function acceptBonusOk(ini,fin){
+	var accept = 1;
+	var i;
+
+	for (var i = ini; i < fin; i++){
+		if (localStorage.getItem("PlayerA"+i) != getItem("LS_turn")){
+			accept = 0;
+		};
+	};
+
+	return accept;
+	
+
+}
+
+function acceptBonus(player){
+
+	// localStorage.setItem("PlayerA"+0,1);
+	// localStorage.setItem("PlayerA"+2,1);
+
+	if(acceptBonusOk(0,3)){	//América do Sul
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+2);
+	}
+	else if(acceptBonusOk(4,9)){ //Africa
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+2);
+	}
+	else if(acceptBonusOk(10,18)){ //América do Norte
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+4);
+	}
+	else if(acceptBonusOk(19,25)){ //Europa
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+5);
+	}
+	else if (acceptBonusOk(26,37)){ //Ásia
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+6);
+	}
+	else if(acceptBonusOk(38,41)){ //OCEANIA
+		localStorage.setItem("bonusTerritory",parseInt(localStorage.getItem("bonusTerritory"))+2);
+	}
+
+	alert("fazerrr");
+
+	reloadTerritory();
+}
+
+function whatYourColor(army){
+	var cor;
+	if (localStorage.getItem("PlayerA"+army)==1){
+		cor = "red";
+	}
+	if (localStorage.getItem("PlayerA"+army)==2) {
+		cor = "blue";
+	};
+
+	return cor;
+
+}
+
+function reloadTerritory(){
+	var totalArmyPlayer= new Array();
+		totalArmyPlayer[1]=0;
+		totalArmyPlayer[2]=0;
+			
+	if (turn == undefined){
+		turn = localStorage.getItem("LS_turn");		
+	};
+
+	if (player == undefined){
+		player = localStorage.getItem("LS_player");	
+	};
+
+	if (SelectionAttack == undefined){
+		SelectionAttack = false;
+	};
+
+		//Quando Inicializa a Página os valores serão pegos no banco de Dados
+			//Setando valores pelo LocalStore
+		for (var i=0; i<qntdTerritorios; i++){  //Função prencher valores e dominios
+			document.getElementById("army"+i).innerHTML = localStorage.getItem("A"+i);
+			whatYourColor(i);			
+			document.getElementById("army"+i).setAttribute('style', ' background-color:'+whatYourColor(i)+' ;');
+		};
+
+			//Total de Territorios de cada jogador
+		for (var i=0; i<qntdTerritorios; i++){
+			if (localStorage.getItem("PlayerA"+i) == 1){
+				totalArmyPlayer[1] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[1];
+				document.getElementById("totalArmy").innerHTML = totalArmyPlayer[1];
+			}
+			else if (localStorage.getItem("PlayerA"+i) == 2){ //Bonus por territórios divide por 2
+				totalArmyPlayer[2] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[2];
+				// document.getElementById("totalArmy").innerHTML = totalArmyPlayer[2];
+			};
+		};
+
+
+		///localStorage.setItem("bonusTerritory",parseInt( parseInt(document.getElementById("totalArmy1").innerHTML) /2 ) ); //Qtos irá ganhar no próximo turno 
+		
+		document.getElementById("armyNextPhase1").innerHTML= localStorage.getItem("bonusTerritory");
+		
+		document.getElementById("armyContinente").innerHTML = localStorage.getItem("bonusContinent");
+
+		document.getElementById("armyBonusCard").innerHTML = localStorage.getItem("bonusCards");
+
+		// alert("valores:,REALOADTERRITORY");
+	
+}
 
 function updateTerritory(army){
 	alert("update");
@@ -124,65 +283,6 @@ function updateTerritory(army){
 	});
 
 }
-
-function changePhases(){  //Temporary
-	localStorage.setItem("LS_fasesOfGame", 1); //Fase de Upgrade
-	alert(localStorage.getItem("LS_fasesOfGame"));
-
-}
-
-function reloadTerritory(){
-	var totalArmyPlayer= new Array();
-		totalArmyPlayer[1]=0;
-		totalArmyPlayer[2]=0;
-			
-	if (turn == undefined){
-		turn = localStorage.getItem("LS_turn");		
-	};
-
-	if (player == undefined){
-		player = localStorage.getItem("LS_player");	
-	};
-
-	if (SelectionAttack == undefined){
-		SelectionAttack = false;
-	};
-
-		//Quando Inicializa a Página os valores serão pegos no banco de Dados
-			//Setando valores pelo LocalStore
-		for (var i=0; i<qntdTerritorios; i++){  //Função prencher valores e dominios
-			document.getElementById("army"+i).innerHTML = localStorage.getItem("A"+i);			
-			document.getElementById("army"+i).setAttribute('style', ' background-color:'
-				+localStorage.getItem("PlayerA"+i)+' ;');
-		};
-
-			//Total de Territorios de cada jogador
-		for (var i=0; i<qntdTerritorios; i++){
-			if (localStorage.getItem("PlayerA"+i) == "red"){
-				totalArmyPlayer[1] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[1];
-				document.getElementById("totalArmy").innerHTML = totalArmyPlayer[1];
-			}
-			else if (localStorage.getItem("PlayerA"+i) == "blue"){ //Bonus por territórios divide por 2
-				totalArmyPlayer[2] = parseInt(localStorage.getItem("A"+i))+ totalArmyPlayer[2];
-				// document.getElementById("totalArmy").innerHTML = totalArmyPlayer[2];
-			};
-		};
-
-
-		///localStorage.setItem("bonusTerritory",parseInt( parseInt(document.getElementById("totalArmy1").innerHTML) /2 ) ); //Qtos irá ganhar no próximo turno 
-		
-		document.getElementById("armyNextPhase1").innerHTML= localStorage.getItem("bonusTerritory");
-		
-		document.getElementById("armyContinente").innerHTML = localStorage.getItem("bonusContinent");
-
-		document.getElementById("armyBonusCard").innerHTML = localStorage.getItem("bonusCards");
-
-		// alert("valores:,REALOADTERRITORY");
-
-		
-}
-
-
 
 function connectArea(armyAttack,armyDefender){
 				// FRONTEIRA FORMATO MATRIX
@@ -284,7 +384,7 @@ function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escol
 		vArmy = parseInt(localStorage.getItem("A"+armyAttack))-1;
 		localStorage.setItem("A"+armyAttack,vArmy);
 		localStorage.setItem("A"+armyDefender,1);
-		localStorage.setItem("PlayerA"+armyDefender,"red");
+		localStorage.setItem("PlayerA"+armyDefender,1);
 	};
 
 	reloadTerritory();
@@ -336,36 +436,7 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 
 }
 
-function choiceTerritory(){	
-	var nRandom;
-	var i = 0;
-	var ArmyCor = "red";
 
-
-	do{ /* Não esquecer de tratar RANDOM para não repetir numeros*/
-		nRandom = Math.floor((Math.random()*qntdTerritorios)); // Random de 0 a 10
-		// alert(localStorage.getItem("A"+nRandom));
-		
-		if (localStorage.getItem("A"+nRandom)== 0){
-		 		localStorage.setItem("A"+nRandom, 2);
-		 		localStorage.setItem("PlayerA"+nRandom, ArmyCor);//dominio player		 		
-				if (ArmyCor == "red"){
-					ArmyCor = "blue";
-					// alert("blueee");
-				}
-				else if (ArmyCor == "blue"){
-					ArmyCor = "red";
-					// alert("reeddd");
-				}
-
-				i++;				
-		};	
-	}while ( i < qntdTerritorios );
-	localStorage.setItem("LS_fasesOfGame", 2);
-
-	reloadTerritory();
-
-}
 
 function clique(army){
 	var valor = document.getElementById("army"+army).innerHTML;		
@@ -374,14 +445,9 @@ function clique(army){
 
 	
 			//De quem q é o domínio do território, deve ser feito pelo banco, retornando qual player conquistou
-		if (localStorage.getItem("PlayerA"+army) == "red") {
-			conquest = 1;		
-		}
-		else if(localStorage.getItem("PlayerA"+army) == "blue"){
-			conquest = 2;
+alert( localStorage.getItem("PlayerA"+army));
 
-		}
-
+		conquest = localStorage.getItem("PlayerA"+army);
 
 		alert("Conquest: "+conquest);
 		alert("Army: "+army)
