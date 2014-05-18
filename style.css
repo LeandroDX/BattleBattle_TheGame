@@ -207,6 +207,7 @@ h1{
 	text-align: center;
 	padding: 10px;
 	border-radius: 100px;
+	cursor: pointer;
 
 	/*background-color: rgb(250,250,210);*/
 	opacity: 1.0; 
