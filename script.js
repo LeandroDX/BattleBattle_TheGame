@@ -3,20 +3,23 @@ var player;
 var qntdPlayer = 1;
 var SelectionAttack;
 var armyAttack;
-var fArea = new Array;
 var qntdTerritorios = 42;
 var armyTranfer = 0;
 var vArmy;
 
 var teste;
 
+
 function teste(){
 	// load('index.html'); // carrega todo o arquivos
 	// window.location.href = "index.html";
 
-	// alert("teste "+connectArea(3,4));
+	// alert("conect "+connectArea(5,8));
 	// sound(2); //attack	
-	$('#heightBar').unbind('change');
+	// $('#heightBar').unbind('change');
+	// $(".bonus").css("border","1px solid #222 background-color black");
+
+	alert( conditionWinner( 1,parseInt(localStorage.getItem("LS_objective")) )  );
 
 }
 
@@ -27,10 +30,11 @@ function teste(){
 // 	})
 // });
 
-function initialize(){	
+function initialize(){
 	localStorage.setItem("LS_fasesOfGame", 0); // Fases do Jogo  0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus 
 	localStorage.setItem("LS_turn", 1);
 	localStorage.setItem("LS_player", 1);
+	localStorage.setItem("LS_objective", 0);
 
 	// Quantidade de exercito e Dominio - TERRITORIO
 
@@ -83,11 +87,11 @@ function changePhases(){ //0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus()
 
 	vPlayer = localStorage.getItem("LS_turn");
 
-	if (localStorage.getItem("LS_fasesOfGame")==2){
+	if (localStorage.getItem("LS_fasesOfGame")==2){  //UPDATE
 		alert("fases do game");
 		localStorage.setItem("LS_fasesOfGame", 1);
 	}
-	else if(localStorage.getItem("LS_fasesOfGame")==1){
+	else if(localStorage.getItem("LS_fasesOfGame")==1){  //BATTLE
 		localStorage.setItem("LS_fasesOfGame", 2);
 		vPlayer++;
 		if (vPlayer>qntdPlayer) {
@@ -96,6 +100,7 @@ function changePhases(){ //0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus()
 		alert("Mudar player");
 		localStorage.setItem("LS_turn",vPlayer);
 		acceptBonus(vPlayer);
+		conditionWinner( vPlayer,localStorage.getItem("LS_objective") );
 
 	}
 
@@ -104,12 +109,14 @@ function changePhases(){ //0-choiceTerritory()/ 1-battle()/ 2-UpdateBonus()
 
 	alert("Fases: 1-battle()/ 2-UpdateBonus -> "+localStorage.getItem("LS_fasesOfGame"));
 	alert("Turno: "+localStorage.getItem("LS_turn"));
+
+	window.location.href = "index.html"; // carrega toda a pagina
 	
 }
 
 function acceptBonus(player){
-	acceptBonusContinent(0,3);	// América do Sul=4
-	acceptBonusContinent(4,9);	// Africa=6
+	acceptBonusContinent(0,3);		// América do Sul=4
+	acceptBonusContinent(4,9);		// Africa=6
 	acceptBonusContinent(10,18);	// América do Norte=9
 	acceptBonusContinent(19,25);	// Europa=7
 	acceptBonusContinent(26,37);	// Ásia=12
@@ -161,7 +168,7 @@ function acceptBonusTerritory(){
 		};
 	};
 	bonus=(bonus/2)+parseInt(localStorage.getItem("bonusTerritory"));
-	localStorage.setItem("bonusTerritory",bonus);
+	localStorage.setItem("bonusTerritory",parseInt(bonus));
 
 }
 
@@ -232,9 +239,9 @@ function reloadTerritory(){
 function updateTerritory(army){
 	alert("update");
 	var valor;
-	var valueFinalUpdate;
-										//Falta connect area****************
-	if (armyTranfer == 1){ // Tranferir exercito próprio para outra área 
+	var valueFinalUpdate;							
+							
+	if ((armyTranfer == 1)&&(connectArea(vArmy,army)==1) ){ // Tranferir exercito próprio para outra área 
 		alert("VARMY: "+vArmy+" Army: "+army);
 		reloadTerritory();
 		reluzTransfer(army);
@@ -258,8 +265,8 @@ function updateTerritory(army){
 		});
 	}
 	$('.bonus').unbind('click');
-
-	$(".bonus").click(function(){	
+	$(".bonus").click(function(){
+		reluzUpdate(this);
 		var heightBar= document.getElementById("heightBar");
 		valor=($(this).attr("value"));
 		heightBar.value= "0";
@@ -310,6 +317,7 @@ function updateTerritory(army){
 			});		
 
 		}
+		
 
 	});
 
@@ -321,6 +329,8 @@ function rollTheDice(){
 
 function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escolhidos para o embate
 	var i, j, swap;
+	var dice1 = document.getElementById("die1");
+
 	var valueDice = new Array();
 		valueDice[1]=0;
 		valueDice[2]=0;
@@ -333,10 +343,14 @@ function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escol
 
 	for (i=1; i <= diceA; i++){
 		valueDice[i]= rollTheDice();
-		diceAnimation(valueDice[i],"Attack"); 		
+		document.getElementById("die"+i).innerHTML = parseInt(valueDice[i]);
+
+		diceAnimation(valueDice[i],"Attack"); 	
 	}
 	for (i=4; i <= (diceD+3); i++){
 	 	valueDice[i]= rollTheDice();
+	 	document.getElementById("die"+i).innerHTML = parseInt(valueDice[i]);
+
 	 	diceAnimation(valueDice[i],"Defenser");		
 	}
 
@@ -353,17 +367,21 @@ function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escol
 			//Ordenação dos dados, maior p/ menor
 	for (i = 1; i <= 2 ; i++) {
 		for (j = i+1; j <= 3; j++) {
-			if(valueDice[i]<valueDice[j]){
+			if(valueDice[i]<valueDice[j]){  //ordena dados de Attack
 				swap=valueDice[i];
 				valueDice[i]=valueDice[j];
-				valueDice[j]=swap;
+				valueDice[j]=swap;							
 			}
-			if(valueDice[i+3]<valueDice[j+3]){
+			if(valueDice[i+3]<valueDice[j+3]){  //ordena dados de Defense
 				swap=valueDice[i+3];
 				valueDice[i+3]=valueDice[j+3];
-				valueDice[j+3]=swap;
+				valueDice[j+3]=swap;			
 			}
 		};		
+	};
+
+	for (i=1; i < valueDice.length; i++) {
+		document.getElementById("die"+i).innerHTML = parseInt(valueDice[i]);
 	};
 
 	alert("A1 --> "+ valueDice[1] +
@@ -373,6 +391,9 @@ function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escol
 		"\nD2 --> "+ valueDice[5] +
 		"\nD3 --> "+ valueDice[6] 
 	);
+
+
+	
 
 	// Calculos de perdas
 	var qts,vArmy,qtsLose=0;	
@@ -429,7 +450,8 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 		document.getElementById('qntdYourAttack').options[2] = new Option( "3 army's",3 );
 	}	
 
-		//perguntar qtos dados usar??
+			//perguntar qtos dados usar??
+		$('#btnAttck').unbind('click');//Reseta evento
 		$("#btnAttck").click(function(){ //Evento de clicar no BtnAttck, para escolher qntd de armys atacantes
 			qntdDiceAttack = parseInt(document.getElementById("qntdYourAttack").value);
 			alert("Ataccckk");
@@ -457,6 +479,9 @@ function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fron
 function clique(army){
 	var valor = document.getElementById("army"+army).innerHTML;		
 	var conquest;
+
+	$('#army'+army).unbind('click');
+
 	alert("Conquest: "+conquest);
 	
 			//De quem q é o domínio do território, deve ser feito pelo banco, retornando qual player conquistou
@@ -497,6 +522,7 @@ function clique(army){
 					document.getElementById("attack").style.display = "none";
 				    reluzAttack(army);
 					battle(armyAttack,army);
+					SelectionAttack=false;
 							    
 				}
 
@@ -515,7 +541,71 @@ function clique(army){
 
 		}
 
+	}	
+
+}
+
+function connectArea(armyAttack,armyDefender){
+	var area;
+
+				//FRONTEIRAS
+
+	switch (armyAttack) {
+		 case 1: area = [1,2]; 		break;
+		 case 2: area = [0,1,3];	break;
+		 case 3: area = [1,2,10]; 	break;
+
+		 case 4: area = [5,6,8]; 	break;
+		 case 5: area = [4,6,8]; 	break;
+		 case 6: area = [4,5,7,8]; 	break;
+		 case 7: area = [1,6,8,9]; 	break;
+		 case 8: area = [5,6,7,9]; 	break;
+		 case 9: area = [7,8,27]; 	break;
+
+		case 10: area = [3,11,12]; 		break;
+		case 11: area = [10,12,14,17]; 	break;
+		case 12: area = [10,11,13,14]; 	break;
+		case 13: area = [12,14,15,16]; 	break;
+		case 14: area = [11,12,13,16,17]; break;
+		case 15: area = [13,16,37]; 	break;
+		case 16: area = [13,15,18]; 	break;
+		case 17: area = [11,14,18]; 	break;
+		case 18: area = [16,17,20]; 	break;
+
+		case 19: area = [20,21,22,25];	break;
+		case 20: area = [18,19,25]; 	break;
+		case 21: area = [7,9,19,22]; 	break;
+		case 22: area = [19,21,23]; 	break;
+		case 23: area = [7,8,27]; 		break;
+		case 24: area = [23,25,27,29,32]; break;
+		case 25: area = [19,20,24]; 	break;
+
+		case 26: area = [9,23,24,27,29];	break;
+		case 27: area = [26,28,29,30,39]; 	break;
+		case 28: area = [27,30,40]; 		break;
+		case 29: area = [24,26,27,30,32]; 	break;
+		case 30: area = [27,28,29,31,32,33,34,37]; break;
+		case 31: area = [30,37]; 			break;
+		case 32: area = [24,29,30,33,34]; 	break;
+		case 33: area = [30,32,34,35]; 		break;
+		case 34: area = [32,33,35]; 		break;
+		case 35: area = [33,34,36,37]; 		break;
+		case 36: area = [34,35,37]; 		break;
+		case 37: area = [15,30,35,36]; 		break;
+
+		case 38: area = [39,40,41]; 	break;
+		case 39: area = [27,38]; 		break;
+		case 40: area = [28,38,41]; 	break;
+		case 41: area = [38,40]; 		break;
+	}
+	
+	for (var i=0; i < area.length; i++) {
+		if (armyDefender==area[i]){
+			return 1;
 		}	
+	};	
+	return 0;
+	
 
 }
 
@@ -529,7 +619,6 @@ function reluzAttack(army){
 	document.getElementById("army"+army).setAttribute('style', 'background-color: yellow; border: 4px; solid #A0F ;');
 	document.getElementById("army"+armyAttack).setAttribute('style', 'background-color: white; border: 4px; solid #A0F ;');
 
-
 }
 
 function reluzTransfer(army){
@@ -539,38 +628,18 @@ function reluzTransfer(army){
 
 }
 
+function reluzUpdate(bonus){
+	$(".bonus").css("border","1px solid #222");
+	// document.getElementById("army"+army).setAttribute('style', 'background-color: yellow; border: 4px; solid #A0F ;');
+
+}
+
 function diceAnimation(value,who){
 	alert(value+" "+who);  //fazer animação dos dados
 	sound(2);
 
 }
 
-function connectArea(armyAttack,armyDefender){
-				// FRONTEIRA FORMATO MATRIX
-	fArea = Array(
-			 //0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
-		/*0*/ [2,1,1],
-		/*1*/ [1,2,1,1],
-		/*2*/ [1,1,2,1],
-		/*3*/ [0,1,1,2],
-
-		/*4*/ [2,1,1,1],
-		/*5*/ [0,1,1,1],
-		/*6*/ [2,1,1,1],
-		/*7*/ [2,1,1,1],
-		/*8*/ [2,1,1,1],
-		/*9*/ [2,1,1,1]
-
-	);
-
-	// alert( "attack: "+armyAttack +"defendendo: "+ armyDefender+ "result:  "+fArea[armyAttack][armyDefender]);
-	if(fArea[armyAttack][armyDefender]=='undefined'){
-		return 0;
-	}
-	else{
-		return fArea[armyAttack][armyDefender];
-	}
-}
 
 function sound(number){
 	switch (number) {
@@ -579,6 +648,5 @@ function sound(number){
 		case 2:
 			$("#sound").attr('src','sample 64.wav');	break;
 	}document.getElementById("sound").play();
-
 
 }

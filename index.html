@@ -6,6 +6,7 @@
 	<link rel="stylesheet" title="CSS" href="style.css" />
 		<script type='text/javascript' src="jquery-1.11.0.min.js"></script>
 		<script type='text/javascript' src="script.js"></script>
+		<script type='text/javascript' src="scriptConditionWinner.js"></script>
 
 </head>
 <body onload="reloadTerritory();">
@@ -166,7 +167,7 @@
 
 
 			</div>
-		
+			
 
 
 		</div>
@@ -179,6 +180,15 @@
 		</div>
 
 
+			<div>
+				<div id="die1" class="dice attack">0</div>
+				<div id="die2" class="dice attack">0</div>
+				<div id="die3" class="dice attack">0</div>
+				<div id="die4" class="dice defense">0</div>
+				<div id="die5" class="dice defense">0</div>
+				<div id="die6" class="dice defense">0</div>
+				<button onclick="teste()">Roll Dice</button>
+			</div>
 
 
 
@@ -199,6 +209,9 @@
 
 
 	<audio src="" id="sound" preload="auto"></audio>
+
+
+
 
 
 

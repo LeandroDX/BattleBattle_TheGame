@@ -191,7 +191,7 @@ h1{
 	color: #A00;
 
 	position: absolute;
-	top: 490px;
+	top: 580px;
 	left: 520px;
 
 	display: none;
@@ -439,3 +439,20 @@ h1{
 
 }
 
+.dice{
+	float: left;
+	width: 32px;
+	background: #F5F5F5;
+	border: #999 1px solid;
+	padding: 10px;
+	font-size: 24px;
+	text-align: center;
+	margin: 5px; 
+}
+
+.attack{
+	background: red;
+}
+.defense{
+	background: yellow;
+}
