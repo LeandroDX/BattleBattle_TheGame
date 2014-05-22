@@ -1,10 +1,12 @@
+var i;
+
 function conditionWinner(player,objective){
 
 	switch (objective) {
 		case 0:
-			return mission0(player); 	break;
+			return mission0(); 	break;
 		case 1:
-			return mission1(player); 	break;
+			return mission1(); 	break;
 	}
 
 }
@@ -26,66 +28,72 @@ function conditionWinner(player,objective){
 		- Destruir totalmente OS EXÉRCITOS VERDES.
 */
 
-function mission0(player){	// Conquistar o mundo! by Pink e Cerebro
-	var i,winner=true;
+function mission0(){	// Conquistar o mundo! by Pink e Cerebro
 
+	if (americaDoSulConquest()&&americaDoNorteConquest()&&africaConquest()&&europaConquest()
+		&&asiaConquest()&&oceaniaConquest) {
+		return true;
+	};
+	return false;
+}
 
+function mission1(){	// Conquistar na totalidade a EUROPA, a OCEANIA e mais um terceiro.
+	if (americaDoSulConquest()) {
+		return true
+	};
+	return false;
+}
+
+function americaDoSulConquest(){
 	for (i=0; i<=3; i++) {	// América do Sul
-		if (localStorage.getItem("PlayerA"+i)!=player){
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
 	};
-
-	for (i=4; i<=9; i++) {	// África
-		if (localStorage.getItem("PlayerA"+i)!=player){
-			return false;
-		};
-	};
-
-	for (i=10; i<=18; i++) {	// América do Norte
-		if (localStorage.getItem("PlayerA"+i)!=player){
-			return false;
-		};
-	};
-
-	for (i=19; i<=25; i++) {	// Europa
-		if (localStorage.getItem("PlayerA"+i)!=player){
-			return false;
-		};
-	};
-
-	for (i=26; i<=37; i++) {	// Ásia
-		if (localStorage.getItem("PlayerA"+i)!=player){
-			return false;
-		};
-	};
-
-	for (i=38; i<=41; i++) {	// Oceania
-		if (localStorage.getItem("PlayerA"+i)!=player){
-			return false;
-		};
-	};
-
 	return true;
 }
 
-function mission1(player){	// Conquistar na totalidade a EUROPA, a OCEANIA e mais um terceiro.
-	var i,winner=true;
+function americaDoNorteConquest(){
+	for (i=10; i<=18; i++) {	// América do Norte
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
+			return false;
+		};
+	};
+	return true;
+}
 
+function africaConquest(){
+	for (i=4; i<=9; i++) {	// África
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
+			return false;
+		};
+	};
+	return true;
+}
 
+function europaConquest(){
+	for (i=19; i<=25; i++) {	// Europa
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
+			return false;
+		};
+	};
+	return true;
+}
 
+function asiaConquest(){
+	for (i=26; i<=37; i++) {	// Ásia
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
+			return false;
+		};
+	};
+	return true;
+}
 
-	// for (i=19; i<=25; i++) {	// Europa
-	// 	if (localStorage.getItem("PlayerA"+i)!=player){
-	// 		return false;
-	// 	};
-	// };
-
-	// for (i=38; i<=41; i++) {	// Oceania
-	// 	if (localStorage.getItem("PlayerA"+i)!=player){
-	// 		return false;
-	// 	};
-	// };
-
-	// return true;
+function oceaniaConquest(){
+	for (i=38; i<=41; i++) {	// Oceania
+		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
+			return false;
+		};
+	};
+	return true;
 }

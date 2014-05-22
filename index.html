@@ -7,6 +7,7 @@
 		<script type='text/javascript' src="jquery-1.11.0.min.js"></script>
 		<script type='text/javascript' src="script.js"></script>
 		<script type='text/javascript' src="scriptConditionWinner.js"></script>
+		<script type='text/javascript' src="tortaPieCanvas.css"></script>
 
 </head>
 <body onload="reloadTerritory();">
@@ -15,7 +16,7 @@
 
 	<div id="layoutMap">  <!--//Área de jogo, mapa territorios-->
 
-		<img  id="bground" src="WarMap.jpg" />		
+		<img  id="bground" src="IMG/WarMap.jpg" />		
 
 		<div id="army0" class="army" title="Argentina" onclick="clique(0);"></div>
 		<div id="army1" class="army" title="Brazil" onclick="clique(1);"></div>
@@ -97,8 +98,7 @@
 		</div>
 
 
-
-
+		<div class="pieContainer"> <div class="pieBackground"></div> <div id="pieSlice1" class="hold"><div class="pie"></div></div> <div id="pieSlice2" class="hold"><div class="pie"></div></div> <div id="pieSlice3" class="hold"><div class="pie"></div></div> <div id="pieSlice4" class="hold"><div class="pie"></div></div> </div>
 
 		
 	</div>
@@ -212,48 +212,12 @@
 
 
 
-
-
-
-	<!--
-
-	<img class="area1" src="quadrado2.jpg" onclick="mudaImagem(1)" />
-
-
-
-	<script type='text/javascript'>
-
-	function mudaImagem(i) {    
-
-	if (i == 1) {
-
-        document.getElementById("imagem1").src="teste.png";
-
-        document.getElementById("imagem2").src="teste.png";    
-
-    } else if (i == 2) {       
-
-    	document.getElementById("imagem1").src="teste.png";        
-
-    	document.getElementById("imagem2").src="teste.png";    
-
-    }
-
-	}
-
-	</script>
+<a href="javascript: void(0);" onclick="window.open('http://www.facebook.com/sharer.php?u=http://battlethegame.tk','ventanacompartir', 'toolbar=0, status=0, width=650, height=450');">Compartilhar no Facebook</a>  
 
 
 
 
 
-	<p>Treino de link</p>
 
-	
-
-	<a id="area1" href=""><img src="quadrado.png"> </a>	
-
-	-->
-	
 </body>
 </html>
