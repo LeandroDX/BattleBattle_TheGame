@@ -14,7 +14,7 @@ function teste(){
 	// load('index.html'); // carrega todo o arquivos
 	// window.location.href = "index.html";
 
-	// alert("conect "+connectArea(5,8));
+	// alert("conect "+connectArea(5,8));bonus
 	// sound(2); //attack	
 	// $('#heightBar').unbind('change');
 	// $(".bonus").css("border","1px solid #222 background-color black");
@@ -554,7 +554,6 @@ function clique(army){
 			if (conquest == player) {
 				reluzOn(army);
 				document.getElementById("armyYour").innerHTML = document.getElementById("army"+army).innerHTML;
-				alert("TESTTTTT");			
 				updateTerritory(army);
 			}
 
