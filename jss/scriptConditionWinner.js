@@ -1,6 +1,6 @@
 var i;
 
-function conditionWinner(player,objective){
+function conditionWinner(objective){
 
 	switch (objective) {
 		case 0:
@@ -11,35 +11,47 @@ function conditionWinner(player,objective){
 
 }
 
+function askObjective(obj){
+
+	document.getElementById("objective").src = "MEDIA/Objective/mission"+obj+".txt";
+}
+
 /*Abaixo seguem todos os objetivos do jogo:
-		- Conquistar na totalidade a EUROPA, a OCEANIA e mais um terceiro.
-		- Conquistar na totalidade a ASIA e a AMÉRICA DO SUL.
-		- Conquistar na totalidade a EUROPA, a AMÉRICA DO SUL e mais um terceiro.
-		- Conquistar 18 TERRITÓRIOS e ocupar cada um deles com pelo menos dois exércitos.
-		- Conquistar na totalidade a ASIA e a ÁFRICA.
-		- Conquistar na totalidade a AMÉRICA DO NORTE e a ÁFRICA.
-		- Conquistar 24 TERRITÓRIOS à sua escolha.
-		- Conquistar na totalidade a AMÉRICA DO NORTE e a OCEANIA.
-		- Destruir totalmente OS EXÉRCITOS AZUIS.
-		- Destruir totalmente OS EXÉRCITOS AMARELOS.
-		- Destruir totalmente OS EXÉRCITOS VERMELHOS.
-		- Destruir totalmente OS EXÉRCITOS PRETOS.
-		- Destruir totalmente OS EXÉRCITOS BRANCO.
-		- Destruir totalmente OS EXÉRCITOS VERDES.
+		1- Conquistar na totalidade a EUROPA, a OCEANIA e mais um terceiro.
+		2- Conquistar na totalidade a ASIA e a AMÉRICA DO SUL.
+		3- Conquistar na totalidade a EUROPA, a AMÉRICA DO SUL e mais um terceiro.
+		4- Conquistar 18 TERRITÓRIOS e ocupar cada um deles com pelo menos dois exércitos.
+		5- Conquistar na totalidade a ASIA e a ÁFRICA.
+		6- Conquistar na totalidade a AMÉRICA DO NORTE e a ÁFRICA.
+		7- Conquistar 24 TERRITÓRIOS à sua escolha.
+		8- Conquistar na totalidade a AMÉRICA DO NORTE e a OCEANIA.
+		9- Destruir totalmente OS EXÉRCITOS AZUIS.
+		10-Destruir totalmente OS EXÉRCITOS AMARELOS.
+		11-Destruir totalmente OS EXÉRCITOS VERMELHOS.
+		12-Destruir totalmente OS EXÉRCITOS PRETOS.
+		13-Destruir totalmente OS EXÉRCITOS BRANCO.
+		14-Destruir totalmente OS EXÉRCITOS VERDES.
 */
 
 function mission0(){	// Conquistar o mundo! by Pink e Cerebro
 
 	if (americaDoSulConquest()&&americaDoNorteConquest()&&africaConquest()&&europaConquest()
 		&&asiaConquest()&&oceaniaConquest) {
-		return true;
+		winner();
 	};
 	return false;
 }
 
 function mission1(){	// Conquistar na totalidade a EUROPA, a OCEANIA e mais um terceiro.
-	if (americaDoSulConquest()) {
-		return true
+	if (  europaConquest()&&oceaniaConquest()&& ( americaDoSulConquest()||americaDoNorteConquest()||africaConquest()||asiaConquest() )  ) {
+		winner();
+	};
+	return false;
+}
+
+function mission2(){	// Conquistar na totalidade a ASIA e a AMÉRICA DO SUL.
+	if (  asiaConquest() && americaDoSulConquest() ) {
+		winner();
 	};
 	return false;
 }
@@ -96,4 +108,8 @@ function oceaniaConquest(){
 		};
 	};
 	return true;
+}
+
+function winner(){
+	alert("WINNER");
 }
