@@ -1,4 +1,5 @@
 #container{
+	float: left;
 	border: 5px solid red;
 	width:1024px;
 	height:650px;
@@ -69,7 +70,7 @@
 
 #diceBattle{
 	float: right;
-	border: 2px solid gray;
+	border: 2px dashed gray;
 	width: 20%;
 	height: 100%;
 	margin-top: 0px;
@@ -77,25 +78,36 @@
 }
 
 #status{
-	border: 1px solid yellow;
+	border: 2px dashed brown;
 	width: 99%;
-	height: 50%;
+	height: 29%;
 	margin-top: 0px;
 	margin-left: 0px;
 }
 
-#phases{	
-	border: 1px solid red;
+#tortapie{
+	border: 2px solid green;
+	width: 98%;
+	height: 36%;
+	position: relative;
+}
+
+#phases{
+	border: 1px dashed red;
 	width: 99%;
-	height: 25%;
+	height: 15%;
 	margin-top: 0px;
 	margin-left: 0px;
 }
 
 #cards{
-	border: 1px solid red;
+	border: 1px dashed red;
 	width: 99%;
-	height: 25%;
+	height: 18%;
 	margin-top: 0px;
 	margin-left: 0px;
+}
+
+#testa{
+	float: right;
 }

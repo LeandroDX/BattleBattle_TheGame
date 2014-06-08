@@ -150,32 +150,81 @@ h1{
 	margin: 0px 0px 0px 0px;
 }
 
-#phases{	
-	border: 1px solid red;
-	width: 99%;
-	height: 25%;
-}
-
 #phases h3{
-	font-size: 18px;
+	font-size: 15px;
 	padding: 0px 15px 0px;
+	margin: 8px 0px 0px 0px;
 	font-weight: lighter;
 }
 #phases input{
 	border-radius: 20px;
-	width: 55%;
-	height: 20%;
+	width: 89px;
+	height: 22px;
 	font-size: 11px;
-	margin-left: 80px;
+	margin-left: 90px;
 	margin-top: 0px;
 	/*margin: 0px 40% 0px;*/
 
+}
+
+#listPlayer{
+	border: 3px solid pink;
+	width: 98%; 
+	height: 35%;
+}
+
+#chart_div{
+	/*z-index: -1;*/
+	margin-top: -10px;
+	margin-left: -50px;
+	border: 1px dashed red;
+
+	width: 410px;
+	height: 200px;
+
+	position:absolute;
+	clip: rect(10px, 254px, 193px, 45px);
+	/*<!-- (topo, direita, inferior, esquerda) -->*/
 }
 
 iframe{
 	margin-top: 0px;
 	margin-left: 0px;
 	width: 98%;
-	height: 70%;
+	height: 75%;
 	font-size: 18px;
 }
+/*
+#selectRandom{
+	position: absolute;
+	margin-top: 230px;
+	margin-left: -320px;
+
+	width: 140px;
+	height: 100px;
+	border-radius: 20px;
+
+}
+*/
+#country{
+	font-style: "Comic Sans MS";
+	font-size: 22px;
+	text-align: center;
+	padding-top: 0%;
+	color: rgb(20,20,20);
+	position: absolute;
+	margin-top: 260px;
+	margin-left: 725px;
+	background-color: rgb(255,250,250);
+	border: 3px solid white;
+	border-radius: 20px;
+	width: 120px;
+	height: 30px;
+	opacity: 0.0;
+}
+
+/*#country:hover{
+	margin-top: 0px;
+	margin-left: 0px;
+	transition-duration: 3s;
+}*/

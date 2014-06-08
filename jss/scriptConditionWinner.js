@@ -1,5 +1,9 @@
 var i;
 
+function objective(){
+	return Math.floor((Math.random()*3)); //Valor de 0 a 3
+}
+
 function conditionWinner(objective){
 
 	switch (objective) {
@@ -7,6 +11,8 @@ function conditionWinner(objective){
 			return mission0(); 	break;
 		case 1:
 			return mission1(); 	break;
+		case 2:
+			return mission2(); 	break;
 	}
 
 }
@@ -61,6 +67,7 @@ function americaDoSulConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
@@ -70,6 +77,7 @@ function americaDoNorteConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
@@ -79,6 +87,7 @@ function africaConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
@@ -88,6 +97,7 @@ function europaConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
@@ -97,6 +107,7 @@ function asiaConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
@@ -106,10 +117,12 @@ function oceaniaConquest(){
 		if (localStorage.getItem("PlayerA"+i)!=localStorage.getItem("LS_turn")){
 			return false;
 		};
+		reluzContinent(i);
 	};
 	return true;
 }
 
 function winner(){
+	sound(7);
 	alert("WINNER");
 }
