@@ -49,7 +49,8 @@ function tortaPie() {
                      		1: {color: whatYourColor(2)},
                      		2: {color: whatYourColor(3)},
                      		3: {color: whatYourColor(4)},
-                     		4: {color: whatYourColor(5)}
+                     		4: {color: whatYourColor(5)},
+                        5: {color: whatYourColor(6)}
                      }, //personalizar a cor do slice
                      // 'slices': {1: {color: 'red'}},
             		 // 'width':400, //size

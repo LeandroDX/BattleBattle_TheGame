@@ -1,6 +1,6 @@
 var turn;
 var player;
-var qntdPlayer = 6;
+var qntdPlayer = 2;
 var SelectionAttack;
 var armyAttack;
 var qntdTerritorios = 42;
@@ -25,9 +25,9 @@ function initialize(){
 	};
 
 	for (var i=1; i<=qntdPlayer; i++) {
-		localStorage.setItem("bonusTerritory"+i, 1);
-		localStorage.setItem("bonusContinent"+i, 1);
-		localStorage.setItem("bonusCards"+i, 1);
+		localStorage.setItem("bonusTerritory"+i, 0);
+		localStorage.setItem("bonusContinent"+i, 0);
+		localStorage.setItem("bonusCards"+i, 0);
 	};
 
 	reloadTerritory();
@@ -47,6 +47,7 @@ function choiceTerritory(){
    		territory.push(i); 	 	
  	 };
 
+ 	 alert("Territórios selecionados aleatoriamente");
 
  	do{ /* RANDOM para não repetir numeros, metodo splice+-=POP*/
  		nRandom = Math.floor((Math.random()*territory.length)); // Random
@@ -93,10 +94,15 @@ function whatYourColor(player){
 		cor = "rgb(220,220,205)";
 	}
 	if (player==6) {
-		cor = "pink";
+		cor = "rgb(0,255,255)";
 	};
 
 	return cor;
+
+}
+
+function whatYourCursor(player){
+	document.body.style.cursor = 'url(img/cur'+player+'.png), default';
 
 }
 
@@ -149,12 +155,16 @@ function reloadTerritory(){
 			document.getElementById("army"+i).setAttribute('style', ' background-color:'+whatYourColor(localStorage.getItem("PlayerA"+i))+' ;');
 		};
 
+
+// document.body.style.cursor = 'url(img/cur1.png), default';
+	whatYourCursor(player);
+
 	explainStatus();
 
 }
 
 function updateTerritory(army){
-	alert("update");
+	// alert("update");
 	var valor;
 	var valueFinalUpdate;
 
@@ -207,17 +217,17 @@ function updateTerritory(army){
 			if (valor==2) {
 				vBonus = "bonusTerritory"+player;
 				vArmy = "armyNextPhase1";
-				alert(vBonus);
+				// alert(vBonus);
 			}
 			else if (valor==3) {
 				vBonus = "bonusContinent"+player;
 				vArmy = "armyContinente";
-				alert(vBonus);
+				// alert(vBonus);
 			}
 			else if (valor==4) {
 				vBonus = "bonusCards"+player;
 				vArmy = "armyBonusCard";
-				alert(vBonus);
+				// alert(vBonus);
 			}
 			$("#volume").attr("style"," opacity: 1.0;");
 
@@ -233,7 +243,7 @@ function updateTerritory(army){
 			});
 			$("#confirm").click(function(){  //Confirma Update
 				localStorage.setItem("A"+army,valueFinalUpdate);
-				alert("Update Your Army");
+				// alert("Update Your Army");
 				localStorage.setItem(vBonus,parseInt(localStorage.getItem(vBonus))-document.getElementById("valueBar").innerHTML);
 				$('#valueBar').unbind('click');	
 				loadingPage();
@@ -244,117 +254,6 @@ function updateTerritory(army){
 
 	});
 
-}
-
-function rollTheDice(){		
-	return Math.floor((Math.random()*6)+1); //Valor de 1 a 6 Simulando um dado
-}
-
-function compareDice(diceA,diceD,armyAttack,armyDefender){ //qntd de dados escolhidos para o embate
-	var i, j, swap;
-	var dice1 = document.getElementById("die1");
-
-	var valueDice = new Array();
-		valueDice[1]=0;
-		valueDice[2]=0;
-		valueDice[3]=0;
-		valueDice[4]=0;
-		valueDice[5]=0;
-		valueDice[6]=0;
-
-	// alert("Atack = "+diceA+"\nDefesa = "+ diceD);
-
-	for (i=1; i <= diceA; i++){
-		valueDice[i]= rollTheDice();
-				//Who Dice //Value Dice
-		diceAnimation( i,parseInt(valueDice[i]) );
-
-	}
-
-	alert("Dice Attack");
-	for (i=4; i <= (diceD+3); i++){
-	 	valueDice[i]= rollTheDice();
-	 	document.getElementById("die"+i).innerHTML = parseInt(valueDice[i]);
-	 	diceAnimation( i,parseInt(valueDice[i]) );
-	}
-	alert("Dice Deffense");
-
-	// alert("A1 --> "+ valueDice[1] +
-	// 	"\nA2 --> "+ valueDice[2] +
-	// 	"\nA3 --> "+ valueDice[3] +
-	// 	"\nD1 --> "+ valueDice[4] +
-	// 	"\nD2 --> "+ valueDice[5] +
-	// 	"\nD3 --> "+ valueDice[6] 
-	// );
-
-	//Lógica para comparação dos Dados
-
-			//Ordenação dos dados, maior p/ menor
-	for (i = 1; i <= 2 ; i++) {
-		for (j = i+1; j <= 3; j++) {
-			if(valueDice[i]<valueDice[j]){  //ordena dados de Attack
-				swap=valueDice[i];
-				valueDice[i]=valueDice[j];
-				valueDice[j]=swap;
-			}
-			if(valueDice[i+3]<valueDice[j+3]){  //ordena dados de Defense
-				swap=valueDice[i+3];
-				valueDice[i+3]=valueDice[j+3];
-				valueDice[j+3]=swap;	
-			}
-		};		
-	};
-
-	for (i=1; i < valueDice.length; i++) {
-			document.getElementById("die"+i).innerHTML = valueDice[i];
-	};
-
-	// alert("A1 --> "+ valueDice[1] +
-	// 	"\nA2 --> "+ valueDice[2] +
-	// 	"\nA3 --> "+ valueDice[3] +
-	// 	"\nD1 --> "+ valueDice[4] +
-	// 	"\nD2 --> "+ valueDice[5] +
-	// 	"\nD3 --> "+ valueDice[6] 
-	// );
-
-
-	// Calculos de perdas
-	var qts,vArmy,qtsLose=0;	
-	if (diceA < diceD){
-		qts=diceA;		
-	}
-	else{
-		qts=diceD;
-	}
-	for (i = 1; i <= qts; i++) {	
-		if(valueDice[i] > valueDice[i+3]){	//Se attack ganhar retira 1 da defenser
-			vArmy = parseInt(localStorage.getItem("A"+armyDefender))-1;
-			localStorage.setItem("A"+armyDefender,vArmy);
-			conditionWinner(parseInt(localStorage.getItem("LS_objective")) );	
-			// sound(2);
-			$("#die"+[i+3]).attr("style"," opacity: 0.5;");
-					alert("Atack Win");
-		}
-		else{	//Defesa ganhou
-			vArmy = parseInt(localStorage.getItem("A"+armyAttack))-1;
-			localStorage.setItem("A"+armyAttack,vArmy);
-			qtsLose++;
-			// sound(3);
-			$("#die"+i).attr("style"," opacity: 0.5;");
-					alert("Atack Lost");
-		}
-	}
-
-	if (localStorage.getItem("A"+armyDefender)==0) {
-		vArmy = parseInt(localStorage.getItem("A"+armyAttack))-(diceA-qtsLose);
-		localStorage.setItem("A"+armyAttack,vArmy);
-		localStorage.setItem("A"+armyDefender,(diceA-qtsLose));
-		localStorage.setItem("PlayerA"+armyDefender,(localStorage.getItem("LS_turn")));
-	};
-
-	conditionWinner(parseInt(localStorage.getItem("LS_objective")) );
-	loadingPage();
-	// window.setTimeout("loadingPage()",5000);
 }
 
 function battle(armyAttack, armyDefender){ //Verificar se territorios fazem fronteira e rolar os dados
@@ -426,7 +325,7 @@ function clique(army){
 				SelectionAttack=true;
 				armyAttack = army;
 
-				alert($("#army"+armyAttack).attr('title'));
+				// alert($("#army"+armyAttack).attr('title'));
 				document.getElementById("b_qntd").innerHTML = localStorage.getItem("A"+armyAttack);
 				document.getElementById("b_country").innerHTML = $("#army"+armyAttack).attr('title');
 
@@ -453,7 +352,7 @@ function clique(army){
 
 		}
 		else if (localStorage.getItem("LS_fasesOfGame")==2) { //FASE UPDATE
-			alert("Fase 2");
+			// alert("Fase 2");
 			// reloadTerritory();
 			if (conquest == player) {
 				reluzOn(army);
@@ -489,7 +388,7 @@ function connectArea(armyAttack,armyDefender){
 
 		case 10: area = [3,11,12]; 		break;
 		case 11: area = [10,12,14,17]; 	break;
-		case 12: area = [10,11,13,14]; 	break;
+		case 12: area = [10,11,12,13,14]; 	break;
 		case 13: area = [12,14,15,16]; 	break;
 		case 14: area = [11,12,13,16,17]; break;
 		case 15: area = [13,16,37]; 	break;
@@ -568,10 +467,18 @@ function reluzContinent(army){
 function diceAnimation(who,value){
 	//fazer animação dos dados
 
-	document.getElementById("die"+who).innerHTML = parseInt(value);
-	$("#die"+who).attr("style"," opacity: 1.0;"); // Dice Visible
 
-	window.setTimeout("sound(1)",2000);
+		diceAnima();
+		// document.getElementById("diceAnimation").setAttribute('style', 'opacity: 1.0;');
+	window.setTimeout(function() {
+		document.getElementById("die"+who).innerHTML = parseInt(value);
+		$("#die"+who).attr("style"," opacity: 1.0;"); // Dice Visible
+		document.getElementById("diceAnimation").setAttribute('style', 'margin-left: -250px;margin-top: 300px;opacity: 0.0;');
+		// alert("Tirou: "+value);
+	}, 1100);
+
+	// window.setTimeout("diceAnima",1000);
+	// alert();
 }
 
 
@@ -620,7 +527,7 @@ function explainStatus(){
 			h3.appendChild(span);
 
 			document.getElementById("Play"+i).setAttribute('style', 'background-color: '+ whatYourColor(i)+";");
-			document.getElementById("span"+i).setAttribute('style', 'font-size: 8px;');
+			document.getElementById("span"+i).setAttribute('style', 'font-size: 9px;');
 			
 			pieceTortaPie(count); // insere valor de cada pedaço do Torta pie
 			count=0;
@@ -650,6 +557,8 @@ function sound(number){
 			$("#sound").attr('src','media/sounds/battle.mp3');		break;
 		case 7:
 			$("#sound").attr('src','media/sounds/goal.mp3');		break;
+		case 8:
+			$("#sound").attr('src','media/sounds/sample 99.wav');	break;
 
 	}document.getElementById("sound").play();
 
@@ -663,6 +572,18 @@ function loadingPage(){
 function teste(){
 
 
+
+
+
+		
+			// window.setTimeout(function() {
+			// 	document.getElementById("diceAnimation").setAttribute('style', 'margin-left: -370px; margin-top: 500px;'+
+			// 															  'transition-duration: 0.4s;opacity: 1.0;'
+			// 															  );
+			// }, 800);
+
+
+	// document.getElementById("diceAnimation").src="img/dice.gif";
 
 	// animationScroll(1);
 	// window.open("teets");
@@ -678,7 +599,7 @@ function teste(){
 	// askObjective(6);
 	// alert("souu");
 
-	sound(4); //attack
+	sound(8); //attack
 	// $("#sound").attr('src','media/sounds/sample 27.wav');
 	// document.getElementById("sound").play();
 // $(function(){
