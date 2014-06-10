@@ -1,0 +1,148 @@
+#imagem{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: white;
+	border-style:solid;
+	border-width: 3px;
+}
+
+body{
+	background-image:url(../images/fundo%20metal.jpg);
+	background-size:cover;
+	display: block;
+	border: blue;
+}
+
+.cadastro-form{
+	display:inline;
+	position:absolute;
+	top:270px;
+	left:100px;
+	width:500px;
+	height:445px;
+	background-color:#333;
+	font-size:36px;
+	color:#FFF;
+	font-family:Stencil, "Stencil Std";
+	
+}
+
+.textboxcad{
+	width: 400px;
+	height: 30px;
+	font-size:24px;
+}
+
+label{
+	font-size:18px;
+}
+
+.rodape{
+	position:absolute;
+	top:1300px;
+	color:#FFF;
+	left:500px;
+}
+
+.cadastro-form{
+	display:inline;
+	position:absolute;
+	top:300px;
+	left:80px;
+	width:500px;
+	height:350px;
+	background-color:#333;
+	font-size:36px;
+	color:#FFF;
+	font-family:Stencil, "Stencil Std";
+	
+}
+
+h1{
+	position:absolute;
+	top:200px;
+	left:500px;
+	font-family:Stencil, "Stencil Std";
+	font-size:36px;
+	color:#FFF;
+}
+
+
+#bt_play{
+	position:absolute;
+	right:200px;
+	top:600px;
+	width:300px;
+	height:100px;
+	background-color:#C00;
+	color:#FFF;
+	border-radius:10px;
+	font-size:36px;
+	font-family:"swis721 Blk BT";
+	box-shadow:inset 5px 5px 5px #F00;
+}
+
+#bt_deletar{
+	position:absolute;
+	top:300px;
+	font-size:24px;
+	border-radius:10px;
+	width:150px;
+	height:50px;
+	left:80px;
+	box-shadow:inset 5px 5px 5px #F00;
+	font-family:"swis721 Blk BT";
+	color:#FFF;
+	background-color:#C00;
+}
+
+#bt_cadastrar{
+	position:absolute;
+	top:300px;
+	font-size:24px;
+	border-radius:10px;
+	width:200px;
+	height:50px;
+	left: 300px;
+	box-shadow:inset 5px 5px 5px #FFF;
+	font-family:"swis721 Blk BT";
+	color:#FFF;
+	background-color:#06C;
+}
+
+#share-button{
+	position:absolute;
+	top:1200px;
+	left:600px;
+}
+
+.desafiar_form{
+	display:inline;
+	position:absolute;
+	top:400px;
+	right:80px;
+	background-color:#333;
+	font-size:36px;
+	color:#FFF;
+	font-family:Stencil, "Stencil Std";
+}
+
+#bt_desafiar{
+	font-size:24px;
+	border-radius:10px;
+	left:150px;
+	box-shadow:inset 5px 5px 5px #FC0;
+	font-family:"swis721 Blk BT";
+	color:#000;
+	background-color:#FF3;
+}
+
+.box_desafiar{
+	width: 350px;
+	height: 30px;
+	font-size:24px;
+}
+	
+	
+	

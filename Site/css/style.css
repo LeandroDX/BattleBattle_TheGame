@@ -1,0 +1,141 @@
+#menu ul {
+	padding:0px;
+	margin:0px;
+	list-style:none;
+}
+
+#imagem{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: white;
+	border-style:solid;
+	border-width: 3px;
+}
+
+#menu{
+	text-align:center;
+}
+
+#menu ul li { 
+	display: inline;
+}
+
+#menu ul li a {
+	padding: 2px 10px;
+	display: inline-block;
+ 
+	/* visual do link */
+	background-color:white;
+	color: #333;
+	text-decoration: none;
+	border-bottom:3px solid black;
+}
+
+#menu ul li a:hover {
+	background-color:black;
+	color: white;
+	border-bottom:3px solid white;
+}
+
+body{
+	background-image:url(../images/fundo%20metal.jpg);
+	background-repeat:no-repeat;
+	background-position:top;
+	background-attachment:scroll;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
+	height:1300px;
+}
+
+.contact-form{
+	background-color:#333;
+	display:inline;
+	position:absolute;
+	top:350px;
+	left:440px;
+	font-size:36px;
+	color:#FFF;
+	font-family:Stencil, "Stencil Std";
+}
+
+.cadastro-form{
+	display:inline;
+	position:absolute;
+	top:680px;
+	left:100px;
+	width:500px;
+	height:350px;
+	background-color:#333;
+	font-size:36px;
+	color:#FFF;
+	font-family:Stencil, "Stencil Std";
+	
+}
+
+.textboxcad{
+	width: 400px;
+	height: 30px;
+	font-size:24px;
+}
+
+label{
+	font-size:18px;
+}
+
+#slideshow{
+	width:590px;
+	height:420px;
+	position:absolute;
+	right:50px;
+	top:215px;
+}
+
+.segunda-tela{
+	position:absolute;
+	top:700px;
+}
+
+.rodape{
+	position:absolute;
+	top:1300px;
+	color:#FFF;
+	left:500px;
+}
+
+.textbox{
+	font-size:36px;
+	width:410px;
+}
+
+#bt_login{
+	font-size:24px;
+	width:414px;
+	background-color:#390;
+	color:#FFF;
+	border-radius:10px;
+	box-shadow:inset 7px 7px 7px #3C0;
+	font-family:"swis721 Blk BT";
+	height:50px;
+}
+
+#bt_login :hover{
+	background-color:#00F;
+}
+
+#bt_cadastrar{
+	position:absolute;
+	top:300px;
+	font-size:24px;
+	border-radius:10px;
+	width:200px;
+	height:50px;
+	position:absolute;
+	left:150px;
+	box-shadow:inset 5px 5px 5px #06F;
+	font-family:"swis721 Blk BT";
+	color:#FFF;
+	background-color:#06C;
+}
